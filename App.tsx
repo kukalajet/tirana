@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   HomeScreen,
-  ListingScreen,
+  PropertyScreen,
   ProfileScreen,
   SearchScreen,
 } from "./src/screens";
@@ -22,7 +22,7 @@ const App = () => (
   <NavigationContainer>
     <RootStack.Navigator initialRouteName="Root">
       <RootStack.Screen name="Root" component={Root} />
-      <RootStack.Screen name="Listing" component={ListingScreen} />
+      <RootStack.Screen name="Property" component={PropertyScreen} />
     </RootStack.Navigator>
   </NavigationContainer>
 );

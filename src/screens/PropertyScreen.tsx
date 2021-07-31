@@ -4,13 +4,13 @@ import { View, Text, Button } from "react-native";
 import { RootStackParams } from "../navigations/RootStack";
 import { useCounterStore } from "../stores";
 
-type ListingScreenNavigationProp = StackNavigationProp<
+type PropertyScreenNavigationProp = StackNavigationProp<
   RootStackParams,
-  "Listing"
+  "Property"
 >;
-type ListingScreenProps = { navigation: ListingScreenNavigationProp };
+type PropertyScreenProps = { navigation: PropertyScreenNavigationProp };
 
-const ListingScreen = ({ navigation }: ListingScreenProps) => {
+const PropertyScreen = ({ navigation }: PropertyScreenProps) => {
   const count = useCounterStore((state) => state.count);
 
   const increase = useCounterStore((state) => state.increase);
@@ -19,7 +19,7 @@ const ListingScreen = ({ navigation }: ListingScreenProps) => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Listing Screen</Text>
+      <Text>Property Screen</Text>
       <Button title="Go back" onPress={() => navigation.goBack()} />
       <View style={{ paddingVertical: 16 }}>
         <Text>Count: {count}</Text>
@@ -31,4 +31,4 @@ const ListingScreen = ({ navigation }: ListingScreenProps) => {
   );
 };
 
-export default ListingScreen;
+export default PropertyScreen;

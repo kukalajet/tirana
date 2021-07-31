@@ -1,11 +1,12 @@
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, Button, ActivityIndicator } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { RootBottomTabParams, RootStackParams } from "../navigations";
-import { useCounterStore } from "../stores";
+import { usePopularPropertyStore } from "../stores";
 import { makeStyles } from "../utils";
+import { Status } from "../models";
 
 type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<RootBottomTabParams, "Home">,
@@ -16,18 +17,27 @@ type HomeScreenProps = { navigation: HomeScreenNavigationProp };
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const styles = useStyles({ color: "white" });
 
-  const count = useCounterStore((state) => state.count);
-  const increase = useCounterStore((state) => state.increase);
+  const status = usePopularPropertyStore((state) => state.status);
+  console.log(`status: ${status === Status.Initial}`);
+  const properties = usePopularPropertyStore((state) => state.properties);
+  const fetchPopularProperties = usePopularPropertyStore(
+    (state) => state.fetch
+  );
+
+  useEffect(() => {
+    fetchPopularProperties();
+  }, []);
+
+  if (status === Status.Initial) return <ActivityIndicator />;
 
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Listing"
-        onPress={() => navigation.navigate("Listing")}
+        title="Go to Property"
+        onPress={() => navigation.navigate("Property")}
       />
-      <Text>Count: {count}</Text>
-      <Button title="Increase by 1" onPress={() => increase(1)} />
+      <Text>{JSON.stringify(properties)}</Text>
     </View>
   );
 };
