@@ -1,15 +1,15 @@
 import create from "zustand";
-import { fetchPopularProperties } from "../../apis";
+import { fetchSuggestedProperties } from "../../apis";
 import { Status } from "../../models";
 import ListCommonType from "./ListCommonType";
 
-type PopularPropertyState = ListCommonType;
+type SuggestedPropertyState = ListCommonType;
 
-const usePopularPropertyStore = create<PopularPropertyState>((set) => ({
+const useSuggestedPropertyStore = create<SuggestedPropertyState>((set) => ({
   status: Status.Initial,
   properties: [],
   fetch: async () => {
-    const properties = await fetchPopularProperties();
+    const properties = await fetchSuggestedProperties();
     set((state) => ({
       properties: state.properties.concat(properties),
       status: Status.Success,
@@ -17,4 +17,4 @@ const usePopularPropertyStore = create<PopularPropertyState>((set) => ({
   },
 }));
 
-export default usePopularPropertyStore;
+export default useSuggestedPropertyStore;

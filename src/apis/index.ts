@@ -1,5 +1,5 @@
 export {
-  fetchCloseProperties,
-  fetchNewProperties,
   fetchPopularProperties,
+  fetchSuggestedProperties,
+  fetchNewProperties,
 } from "./properties";
