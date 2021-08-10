@@ -7,6 +7,7 @@ import {
   SearchScreen,
 } from "./src/screens";
 import { RootBottomTab, RootStack } from "./src/navigations";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Root = () => {
   return (
@@ -20,10 +21,12 @@ const Root = () => {
 
 const App = () => (
   <NavigationContainer>
-    <RootStack.Navigator initialRouteName="Root">
-      <RootStack.Screen name="Root" component={Root} />
-      <RootStack.Screen name="Property" component={PropertyScreen} />
-    </RootStack.Navigator>
+    <BottomSheetModalProvider>
+      <RootStack.Navigator initialRouteName="Root">
+        <RootStack.Screen name="Root" component={Root} />
+        <RootStack.Screen name="Property" component={PropertyScreen} />
+      </RootStack.Navigator>
+    </BottomSheetModalProvider>
   </NavigationContainer>
 );
 

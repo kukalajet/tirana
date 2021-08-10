@@ -15,4 +15,5 @@ export type CompactProperty = {
   bedrooms: number;
   bathrooms: number;
   size: string;
+  previewImage: string;
 };

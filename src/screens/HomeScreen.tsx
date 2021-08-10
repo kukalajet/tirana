@@ -1,11 +1,12 @@
-import React from "react";
-import { ScrollView } from "react-native";
+import React, { useRef, useState } from "react";
+import { ScrollView, Text, Button } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { RootBottomTabParams, RootStackParams } from "../navigations";
 import { makeStyles } from "../utils";
-import { CompactHorizontalList } from "../components";
+import { CompactHorizontalList, ModalPicker } from "../components";
 import {
   useNewPropertyStore,
   usePopularPropertyStore,
@@ -19,10 +20,26 @@ type HomeScreenNavigationProp = CompositeNavigationProp<
 type HomeScreenProps = { navigation: HomeScreenNavigationProp };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
   const styles = useStyles({ color: "white" });
+  const handleButtonPress = () => {
+    if (open) {
+      bottomSheetModalRef.current?.dismiss();
+      setOpen(false);
+    } else {
+      bottomSheetModalRef.current?.present();
+      setOpen(true);
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
+      <Button title="TEST" onPress={() => handleButtonPress()}>
+        TEST
+      </Button>
+
       <CompactHorizontalList
         name="Popular for today"
         useStore={usePopularPropertyStore}
@@ -35,6 +52,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         name="New buildings"
         useStore={useSuggestedPropertyStore}
       />
+
+      <ModalPicker name="name" ref={bottomSheetModalRef}>
+        <Text>HEY</Text>
+      </ModalPicker>
     </ScrollView>
   );
 };

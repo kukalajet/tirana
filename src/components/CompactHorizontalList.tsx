@@ -5,9 +5,10 @@ import {
   ActivityIndicator,
   FlatList,
   Platform,
+  Pressable,
 } from "react-native";
 import { UseStore } from "zustand";
-import { Status } from "../models";
+import { CompactProperty, Status } from "../models";
 import { ListCommonType } from "../stores/properties";
 import { makeStyles } from "../utils";
 import PropertyCard, { CARD_WIDTH } from "./PropertyCard";
@@ -28,11 +29,18 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
     fetch();
   }, []);
 
-  const renderCard = (property: any) => <PropertyCard property={property} />;
+  const renderCard = ({ item }: { item: CompactProperty }) => (
+    <PropertyCard property={item} onPress={() => console.log("Pressed")} />
+  );
 
   return (
     <View style={styles.container}>
-      <Text>{name}</Text>
+      <View style={styles.head}>
+        <Text>{name}</Text>
+        <Pressable onPress={() => console.log("Pressed ")}>
+          <Text>See all</Text>
+        </Pressable>
+      </View>
       {status !== Status.Success ? (
         <View style={styles.spinner}>
           <ActivityIndicator />
@@ -59,6 +67,10 @@ const useStyles = makeStyles(({}: StyleProps) => ({
   container: {
     width: "100%",
     height: 288,
+  },
+  head: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   spinner: {
     alignSelf: "center",
