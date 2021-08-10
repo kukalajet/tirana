@@ -1,7 +1,7 @@
-import React, { useMemo, useCallback, ForwardedRef } from "react";
+import React, { useMemo, ForwardedRef } from "react";
 import { View, Text } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
+import CustomBackdropModal from "./CustomBackdropModal";
 import { makeStyles } from "../utils";
 
 type Props = {
@@ -10,24 +10,21 @@ type Props = {
 };
 
 const ModalPicker = React.forwardRef(
-  ({ name, children }: Props, ref: ForwardedRef<BottomSheetModalMethods>) => {
+  ({ name, children }: Props, ref: ForwardedRef<BottomSheetModal>) => {
     const styles = useStyles();
-
-    const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
-    const handleSheetChanges = useCallback((index: number) => {
-      console.log("handleSheetChanges", index);
-    }, []);
+    const SNAP_POINTS = useMemo(() => ["25%", "50%", "75%"], []);
 
     return (
       <BottomSheetModal
         ref={ref}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
+        key={"modal"}
+        snapPoints={SNAP_POINTS}
         keyboardBehavior="interactive"
         enableOverDrag
+        backdropComponent={(props) => <CustomBackdropModal {...props} />}
       >
         <View style={styles.container}>
-          <Text>{name}</Text>
+          <Text style={styles.title}>{name}</Text>
           <View style={styles.pickerContainer}>{children}</View>
         </View>
       </BottomSheetModal>
@@ -46,6 +43,7 @@ const useStyles = makeStyles(({}: StylesProps) => ({
     flex: 1,
     alignItems: "center",
   },
+  title: {},
 }));
 
 export default ModalPicker;

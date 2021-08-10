@@ -20,26 +20,13 @@ type HomeScreenNavigationProp = CompositeNavigationProp<
 type HomeScreenProps = { navigation: HomeScreenNavigationProp };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const [open, setOpen] = useState<boolean>(false);
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  // const [open, setOpen] = useState<boolean>(false);
+  // const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const styles = useStyles({ color: "white" });
-  const handleButtonPress = () => {
-    if (open) {
-      bottomSheetModalRef.current?.dismiss();
-      setOpen(false);
-    } else {
-      bottomSheetModalRef.current?.present();
-      setOpen(true);
-    }
-  };
 
   return (
     <ScrollView style={styles.container}>
-      <Button title="TEST" onPress={() => handleButtonPress()}>
-        TEST
-      </Button>
-
       <CompactHorizontalList
         name="Popular for today"
         useStore={usePopularPropertyStore}
@@ -53,9 +40,9 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         useStore={useSuggestedPropertyStore}
       />
 
-      <ModalPicker name="name" ref={bottomSheetModalRef}>
+      {/* <ModalPicker name="name" ref={bottomSheetModalRef}>
         <Text>HEY</Text>
-      </ModalPicker>
+      </ModalPicker> */}
     </ScrollView>
   );
 };
