@@ -10,8 +10,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { CompactProperty, Status } from "../models";
 import { RootStackParams } from "../navigations";
-import { makeStyles } from "../utils";
-import { PropertyCard } from "../components";
+import { makeStyles, FILTERS } from "../utils";
+import { ChipPicker, PropertyCard } from "../components";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -40,20 +40,39 @@ const ListScreen = ({ route, navigation }: ListScreenProps) => {
     />
   );
 
+  const renderChip = ({ item }: { item: any }) => (
+    <ChipPicker
+      name={item.name}
+      data={item.data}
+      onPress={(data) => console.log(data)}
+    />
+  );
+
   return (
     <View style={styles.container}>
+      <View style={styles.filtersContainer}>
+        <FlatList
+          horizontal
+          data={FILTERS}
+          renderItem={renderChip}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(_, index) => index.toString()}
+          contentContainerStyle={{ paddingStart: 12 }}
+        />
+      </View>
       {status !== Status.Success ? (
         <View style={styles.spinner}>
           <ActivityIndicator />
         </View>
       ) : (
-        <FlatList
-          data={properties}
-          renderItem={renderCard}
-          showsHorizontalScrollIndicator={false}
-          decelerationRate={Platform.OS === "ios" ? 0.2 : 0.4}
-          keyExtractor={(_, index) => index.toString()}
-        />
+        <View style={styles.listContainer}>
+          <FlatList
+            data={properties}
+            renderItem={renderCard}
+            decelerationRate={Platform.OS === "ios" ? 0.2 : 0.4}
+            keyExtractor={(_, index) => index.toString()}
+          />
+        </View>
       )}
     </View>
   );
@@ -67,6 +86,13 @@ const useStyles = makeStyles((props: StylesProps) => ({
   },
   spinner: {
     alignSelf: "center",
+  },
+  filtersContainer: {
+    paddingVertical: 8,
+    flexDirection: "row",
+  },
+  listContainer: {
+    flex: 1,
   },
 }));
 

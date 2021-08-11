@@ -17,10 +17,9 @@ const ModalPicker = React.forwardRef(
     return (
       <BottomSheetModal
         ref={ref}
-        key={"modal"}
         snapPoints={SNAP_POINTS}
-        keyboardBehavior="interactive"
         enableOverDrag
+        keyboardBehavior="interactive"
         backdropComponent={(props) => <CustomBackdropModal {...props} />}
       >
         <View style={styles.container}>

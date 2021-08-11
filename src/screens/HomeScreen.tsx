@@ -19,10 +19,7 @@ type HomeScreenNavigationProp = CompositeNavigationProp<
 type HomeScreenProps = { navigation: HomeScreenNavigationProp };
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  // const [open, setOpen] = useState<boolean>(false);
-  // const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-
-  const styles = useStyles({ color: "white" });
+  const styles = useStyles();
 
   return (
     <ScrollView style={styles.container}>
@@ -38,19 +35,13 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
         name="New buildings"
         useStore={useSuggestedPropertyStore}
       />
-
-      {/* <ModalPicker name="name" ref={bottomSheetModalRef}>
-        <Text>HEY</Text>
-      </ModalPicker> */}
     </ScrollView>
   );
 };
 
-type StylesProps = {
-  color: string;
-};
+type StylesProps = {};
 
-const useStyles = makeStyles(({ color }: StylesProps) => ({
+const useStyles = makeStyles(({}: StylesProps) => ({
   container: {
     flex: 1,
   },
