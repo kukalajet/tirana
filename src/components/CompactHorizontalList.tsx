@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import {
   View,
@@ -23,6 +24,8 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
   const properties = useStore((state) => state.properties);
   const fetch = useStore((state) => state.fetch);
 
+  const navigation = useNavigation();
+
   const styles = useStyles();
 
   useEffect(() => {
@@ -37,7 +40,9 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
     <View style={styles.container}>
       <View style={styles.head}>
         <Text>{name}</Text>
-        <Pressable onPress={() => console.log("Pressed ")}>
+        <Pressable
+          onPress={() => navigation.navigate("List", { useStore: useStore })}
+        >
           <Text>See all</Text>
         </Pressable>
       </View>

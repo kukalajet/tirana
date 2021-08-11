@@ -5,6 +5,7 @@ import {
   PropertyScreen,
   ProfileScreen,
   SearchScreen,
+  ListScreen,
 } from "./src/screens";
 import { RootBottomTab, RootStack } from "./src/navigations";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -25,6 +26,7 @@ const App = () => (
       <RootStack.Navigator initialRouteName="Root">
         <RootStack.Screen name="Root" component={Root} />
         <RootStack.Screen name="Property" component={PropertyScreen} />
+        <RootStack.Screen name="List" component={ListScreen} />
       </RootStack.Navigator>
     </BottomSheetModalProvider>
   </NavigationContainer>

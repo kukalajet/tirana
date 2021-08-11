@@ -1,12 +1,11 @@
-import React, { useRef, useState } from "react";
-import { ScrollView, Text, Button } from "react-native";
+import React from "react";
+import { ScrollView } from "react-native";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { RootBottomTabParams, RootStackParams } from "../navigations";
 import { makeStyles } from "../utils";
-import { CompactHorizontalList, ModalPicker } from "../components";
+import { CompactHorizontalList } from "../components";
 import {
   useNewPropertyStore,
   usePopularPropertyStore,
