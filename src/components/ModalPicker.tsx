@@ -1,48 +1,109 @@
-import React, { useMemo, ForwardedRef } from "react";
-import { View, Text } from "react-native";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import CustomBackdropModal from "./CustomBackdropModal";
+import React, { useRef, useState } from "react";
+import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { BottomSheetFlatList, BottomSheetModal } from "@gorhom/bottom-sheet";
 import { makeStyles } from "../utils";
+import Modal from "./Modal";
+
+export type Data = {
+  name: string;
+};
+
+export enum Selection {
+  Single,
+  Multi,
+}
+
+type Configs = {
+  selection: Selection;
+};
 
 type Props = {
   name: string;
-  children: React.ReactNode;
+  data: Array<Data>;
+  onPress: (selected: Data) => void;
+  configs: Configs;
 };
 
-const ModalPicker = React.forwardRef(
-  ({ name, children }: Props, ref: ForwardedRef<BottomSheetModal>) => {
-    const styles = useStyles();
-    const SNAP_POINTS = useMemo(() => ["25%", "50%", "75%"], []);
+const ModalPicker = ({
+  name,
+  data,
+  onPress,
+  configs = { selection: Selection.Single },
+}: Props) => {
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [selected, setSelected] = useState<Data | undefined>();
+  const styles = useStyles({ selected: !!selected });
+
+  const type = configs.selection;
+
+  const handleOpen = () => {
+    bottomSheetModalRef?.current?.present();
+  };
+
+  const handleDismiss = () => {
+    bottomSheetModalRef?.current?.dismiss();
+  };
+
+  const renderSelectionItem = ({ item }: { item: Data }) => {
+    const isSelected = item === selected;
 
     return (
-      <BottomSheetModal
-        ref={ref}
-        snapPoints={SNAP_POINTS}
-        enableOverDrag
-        keyboardBehavior="interactive"
-        backdropComponent={(props) => <CustomBackdropModal {...props} />}
+      <TouchableOpacity
+        onPress={() => {
+          setSelected(item);
+          onPress(item);
+          if (type === Selection.Single) handleDismiss();
+        }}
       >
-        <View style={styles.container}>
-          <Text style={styles.title}>{name}</Text>
-          <View style={styles.pickerContainer}>{children}</View>
+        <View style={styles.selectionItem}>
+          <Text>{item.name}</Text>
+          {!!isSelected && <Text>HEEEY</Text>}
         </View>
-      </BottomSheetModal>
+      </TouchableOpacity>
     );
-  }
-);
+  };
 
-type StylesProps = {};
+  return (
+    <Pressable style={styles.container} onPress={handleOpen}>
+      <Text style={styles.value}>{selected ? selected.name : name}</Text>
+      <Modal name={name} ref={bottomSheetModalRef}>
+        <BottomSheetFlatList
+          data={data}
+          renderItem={renderSelectionItem}
+          keyExtractor={(_, index) => index.toString()}
+        />
+      </Modal>
+    </Pressable>
+  );
+};
 
-const useStyles = makeStyles(({}: StylesProps) => ({
+type StylesProps = {
+  selected: boolean;
+};
+
+const useStyles = makeStyles(({ selected }: StylesProps) => ({
   container: {
-    flex: 1,
-    padding: 24,
+    backgroundColor: selected ? "#68a0cf" : undefined,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "red",
+    marginHorizontal: 4,
   },
-  pickerContainer: {
-    flex: 1,
+  value: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  selectionItem: {
+    height: 60,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
+    marginVertical: 4,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: "#80808025",
   },
-  title: {},
 }));
 
 export default ModalPicker;

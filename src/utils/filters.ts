@@ -1,4 +1,4 @@
-import { Data } from "../components/ChipPicker";
+import { Data } from "../components/ModalPicker";
 
 type Filter = {
   name: string;
