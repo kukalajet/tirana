@@ -25,7 +25,11 @@ const App = () => (
     <BottomSheetModalProvider>
       <RootStack.Navigator initialRouteName="Root">
         <RootStack.Screen name="Root" component={Root} />
-        <RootStack.Screen name="Property" component={PropertyScreen} />
+        <RootStack.Screen
+          name="Property"
+          component={PropertyScreen}
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen name="List" component={ListScreen} />
       </RootStack.Navigator>
     </BottomSheetModalProvider>

@@ -33,7 +33,10 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
   }, []);
 
   const renderCard = ({ item }: { item: CompactProperty }) => (
-    <PropertyCard property={item} onPress={() => console.log("Pressed")} />
+    <PropertyCard
+      property={item}
+      onPress={() => navigation.navigate("Property")}
+    />
   );
 
   return (
