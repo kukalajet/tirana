@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,8 +11,7 @@ import { RouteProp } from "@react-navigation/native";
 import { CompactProperty, Status } from "../models";
 import { RootStackParams } from "../navigations";
 import { makeStyles, FILTERS } from "../utils";
-import { ModalPicker, PropertyCard } from "../components";
-import { Selection } from "../components/ModalPicker";
+import { PropertyCard } from "../components";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -42,12 +41,12 @@ const ListScreen = ({ route, navigation }: ListScreenProps) => {
   );
 
   const renderChip = ({ item }: { item: any }) => (
-    <ModalPicker
-      name={item.name}
-      data={item.data}
-      onPress={(data) => console.log(data)}
-      configs={{ selection: Selection.Multi }}
-    />
+    // <SingleModalPicker
+    //   name={item.name}
+    //   data={item.data}
+    //   onPress={(data) => console.log(data)}
+    // />
+    <View></View>
   );
 
   return (
