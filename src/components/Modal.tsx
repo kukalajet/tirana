@@ -28,7 +28,7 @@ const Modal = ({
   disabledButton,
 }: Props) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["25%", "50%", "75%"], []);
+  const snapPoints = useMemo(() => ["25%", "50%", "70%", "90%"], []);
   const { bottom } = useSafeAreaInsets();
 
   const handleDismiss = useCallback(() => {
@@ -66,13 +66,12 @@ const Modal = ({
       </View>
       {children}
       {!!onConfirm && (
-        <View style={styles.buttonContainer}>
-          <PrimaryButton
-            label="Done"
-            disabled={disabledButton}
-            onPress={() => onConfirm()}
-          />
-        </View>
+        <PrimaryButton
+          label="Done"
+          disabled={disabledButton}
+          onPress={() => onConfirm()}
+          style={styles.buttonContainer}
+        />
       )}
     </BottomSheetModal>
   );
@@ -88,7 +87,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   buttonContainer: {
-    paddingBottom: 16,
+    marginBottom: 16,
+    marginHorizontal: 16,
   },
   title: {
     fontWeight: "bold",

@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
-import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import { Feather } from "@expo/vector-icons";
+import CircularBackground from "../CircularBackground";
 import { useForceUpdate } from "../../utils";
 import Modal from "../Modal";
 import Data from "./Data";
@@ -59,8 +61,19 @@ const MultiSelectionModal = ({
         }}
         style={styles.itemContainer}
       >
-        <Text>{item.label}</Text>
-        {isSelected(item) && <Text>SELECTED</Text>}
+        <Text style={styles.label}>{item.label}</Text>
+        {isSelected(item) ? (
+          <CircularBackground style={styles.icon}>
+            <Feather
+              name="check"
+              size={20}
+              color="white"
+              style={styles.check}
+            />
+          </CircularBackground>
+        ) : (
+          <View />
+        )}
       </TouchableOpacity>
     ),
     [selected]
@@ -88,13 +101,25 @@ const MultiSelectionModal = ({
 
 const styles = StyleSheet.create({
   itemContainer: {
-    height: 48,
+    height: 56,
+    borderRadius: 8,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 8,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#eee",
+    flexDirection: "row",
+    backgroundColor: "#eeeeee75",
+    justifyContent: "space-between",
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingHorizontal: 16,
+  },
+  check: {
+    padding: 4,
+  },
+  icon: {
+    marginHorizontal: 16,
   },
 });
 

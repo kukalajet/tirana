@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Text, Pressable } from "react-native";
+import { Text, Pressable, StyleProp } from "react-native";
 import { makeStyles } from "../../utils";
 
 type Props = {
   label: string;
-  disabled?: boolean;
   onPress: () => void;
+  disabled?: boolean;
+  style?: StyleProp<any>;
 };
 
-const PrimaryButton = ({ label, disabled, onPress }: Props) => {
+const PrimaryButton = ({ label, style, disabled, onPress }: Props) => {
   const [pressed, setPressed] = useState<boolean>(false);
-  const styles = useStyles({ pressed, disabled });
+  const styles = useStyles({ pressed, disabled, style });
 
   return (
     <Pressable
@@ -28,9 +29,10 @@ const PrimaryButton = ({ label, disabled, onPress }: Props) => {
 type StylesProps = {
   pressed: boolean;
   disabled?: boolean;
+  style?: StyleProp<any>;
 };
 
-const useStyles = makeStyles(({ pressed, disabled }: StylesProps) => ({
+const useStyles = makeStyles(({ pressed, disabled, style }: StylesProps) => ({
   container: {
     height: 48,
     alignItems: "center",
@@ -38,6 +40,7 @@ const useStyles = makeStyles(({ pressed, disabled }: StylesProps) => ({
     backgroundColor: disabled ? "#eee" : pressed ? "#1237E480" : "#1237E4",
     margin: 8,
     borderRadius: 8,
+    ...style,
   },
   label: {
     color: "white",
