@@ -19,7 +19,6 @@ const ChipPicker = ({ label, onConfirm, onRemove, data }: Props) => {
 
   const getLabel = (item: Data | Data[]): string => {
     if (Array.isArray(item)) {
-      // return (item as Data[]).join("|");
       const items = (item as Data[]).map((value) => value.label).join(" | ");
       return items;
     }
@@ -28,21 +27,6 @@ const ChipPicker = ({ label, onConfirm, onRemove, data }: Props) => {
 
   return (
     <Pressable onPress={() => setOpen(true)} style={styles.container}>
-      {/* <SingleSelectionModal
-        data={data}
-        open={open}
-        onConfirm={(value) => {
-          setSelected(value);
-          onConfirm(value);
-          setOpen(false);
-        }}
-        onRemove={() => {
-          onRemove();
-          setSelected(undefined);
-          setOpen(false);
-        }}
-        onDismiss={() => setOpen(false)}
-      /> */}
       <MultiSelectionModal
         data={data}
         open={open}
