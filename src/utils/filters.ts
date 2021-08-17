@@ -1,54 +1,44 @@
 import { Data } from "../components/pickers";
+import { Size } from "../components/Modal";
 
-const FILTERS: Array<Array<Data>> = [
-  [
-    { label: "hey" },
-    { label: "hey1" },
-    { label: "hey2" },
-    { label: "hey3" },
-    { label: "hey4" },
-    { label: "hey5" },
-    { label: "hey6" },
-    { label: "hey7" },
-    { label: "hey8" },
-    { label: "hey9" },
-  ],
-  [
-    { label: "hey" },
-    { label: "hey1" },
-    { label: "hey2" },
-    { label: "hey3" },
-    { label: "hey4" },
-    { label: "hey5" },
-    { label: "hey6" },
-    { label: "hey7" },
-    { label: "hey8" },
-    { label: "hey9" },
-  ],
-  [
-    { label: "hey" },
-    { label: "hey1" },
-    { label: "hey2" },
-    { label: "hey3" },
-    { label: "hey4" },
-    { label: "hey5" },
-    { label: "hey6" },
-    { label: "hey7" },
-    { label: "hey8" },
-    { label: "hey9" },
-  ],
-  [
-    { label: "hey" },
-    { label: "hey1" },
-    { label: "hey2" },
-    { label: "hey3" },
-    { label: "hey4" },
-    { label: "hey5" },
-    { label: "hey6" },
-    { label: "hey7" },
-    { label: "hey8" },
-    { label: "hey9" },
-  ],
+export type Selection = "single" | "multi";
+
+export type Filter = {
+  modalSize: Size;
+  selection: Selection;
+  label: string;
+  items: Array<Data>;
+};
+
+const FILTERS: Array<Filter> = [
+  {
+    modalSize: "medium",
+    selection: "multi",
+    label: "Acquisition Type ",
+    items: [{ label: "For Sale" }, { label: "For Rent" }, { label: "Sold" }],
+  },
+  {
+    modalSize: "medium",
+    selection: "single",
+    label: "Price",
+    items: [
+      { label: "hey" },
+      { label: "hey1" },
+      { label: "hey2" },
+      { label: "hey3" },
+    ],
+  },
+  {
+    modalSize: "medium",
+    selection: "multi",
+    label: "Property Type",
+    items: [
+      { label: "hey" },
+      { label: "hey1" },
+      { label: "hey2" },
+      { label: "hey3" },
+    ],
+  },
 ];
 
 export default FILTERS;

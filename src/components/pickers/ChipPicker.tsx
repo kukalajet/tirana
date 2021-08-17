@@ -1,18 +1,29 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import MultiSelectionModal from "./MultiSelectionModal";
 import SingleSelectionModal from "./SingleSelectionModal";
-import Data from "./Data";
 import { makeStyles } from "../../utils";
+import { Size } from "../Modal";
+import Selection from "./Selection";
+import Data from "./Data";
 
 type Props = {
   label: string;
   data: Data[];
+  modalSize: Size;
+  selection: Selection;
   onConfirm: (values: Data[] | Data) => void;
   onRemove: () => void;
 };
 
-const ChipPicker = ({ label, onConfirm, onRemove, data }: Props) => {
+const ChipPicker = ({
+  label,
+  data,
+  modalSize,
+  selection,
+  onConfirm,
+  onRemove,
+}: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [selected, setSelected] = useState<Data | Data[]>();
   const styles = useStyles({ selected: !!selected });
@@ -27,21 +38,43 @@ const ChipPicker = ({ label, onConfirm, onRemove, data }: Props) => {
 
   return (
     <Pressable onPress={() => setOpen(true)} style={styles.container}>
-      <MultiSelectionModal
-        data={data}
-        open={open}
-        onConfirm={(value) => {
-          setSelected(value);
-          onConfirm(value);
-          setOpen(false);
-        }}
-        onRemove={() => {
-          onRemove();
-          setSelected(undefined);
-          setOpen(false);
-        }}
-        onDismiss={() => setOpen(false)}
-      />
+      {selection === "multi" ? (
+        <MultiSelectionModal
+          data={data}
+          open={open}
+          label={label}
+          size={modalSize}
+          onConfirm={(value) => {
+            setSelected(value);
+            onConfirm(value);
+            setOpen(false);
+          }}
+          onRemove={() => {
+            onRemove();
+            setSelected(undefined);
+            setOpen(false);
+          }}
+          onDismiss={() => setOpen(false)}
+        />
+      ) : (
+        <SingleSelectionModal
+          data={data}
+          open={open}
+          label={label}
+          size={modalSize}
+          onConfirm={(value) => {
+            setSelected(value);
+            onConfirm(value);
+            setOpen(false);
+          }}
+          onRemove={() => {
+            onRemove();
+            setSelected(undefined);
+            setOpen(false);
+          }}
+          onDismiss={() => setOpen(false)}
+        />
+      )}
       <Text style={styles.label}>{selected ? getLabel(selected!) : label}</Text>
     </Pressable>
   );
@@ -55,7 +88,7 @@ const useStyles = makeStyles(({ selected }: StylesProps) => ({
   container: {
     borderRadius: 16,
     borderWidth: 1.5,
-    borderColor: selected ? "#68a0cf20" : "#00000020",
+    borderColor: selected ? "#ffffff20" : "#00000020",
     marginHorizontal: 4,
     backgroundColor: selected ? "#68a0cf" : "#ffffff80",
     alignItems: "center",
@@ -63,7 +96,8 @@ const useStyles = makeStyles(({ selected }: StylesProps) => ({
   },
   label: {
     paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
+    color: selected ? "white" : "black",
   },
 }));
 

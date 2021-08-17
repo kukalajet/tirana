@@ -10,8 +10,12 @@ import { Feather } from "@expo/vector-icons";
 import { PrimaryButton } from "./buttons";
 import { useEffect } from "react";
 
+export type Size = "medium" | "large";
+
 type Props = {
   open: boolean;
+  label: string;
+  size?: Size;
   children: React.ReactElement;
   onConfirm?: () => void;
   onRemove: () => void;
@@ -19,8 +23,21 @@ type Props = {
   disabledButton?: boolean;
 };
 
+const getSnapoints = (size: Size): string[] => {
+  switch (size) {
+    case "medium":
+      return ["35%", "70%"];
+    case "large":
+      return ["45%", "90%"];
+    default:
+      return ["75%"];
+  }
+};
+
 const Modal = ({
   open,
+  label,
+  size = "medium",
   children,
   onConfirm,
   onRemove,
@@ -28,7 +45,7 @@ const Modal = ({
   disabledButton,
 }: Props) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["25%", "50%", "70%", "90%"], []);
+  const snapPoints = useMemo(() => getSnapoints(size), []);
   const { bottom } = useSafeAreaInsets();
 
   const handleDismiss = useCallback(() => {
@@ -61,7 +78,7 @@ const Modal = ({
       index={snapPoints.length - 1}
     >
       <View style={styles.topBarContainer}>
-        <Text style={styles.title}>Title</Text>
+        <Text style={styles.title}>{label}</Text>
         <Feather name="x" size={28} onPress={onRemove} style={styles.remove} />
       </View>
       {children}

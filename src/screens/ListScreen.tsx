@@ -10,9 +10,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { CompactProperty, Status } from "../models";
 import { RootStackParams } from "../navigations";
-import { makeStyles, FILTERS } from "../utils";
 import { PropertyCard } from "../components";
-import { ChipPicker, Data } from "../components/pickers";
+import { ChipPicker } from "../components/pickers";
+import { makeStyles, FILTERS } from "../utils";
+import { Filter } from "../utils/filters";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -26,7 +27,7 @@ type ListScreenProps = {
   navigation: ListScreenNavigationProp;
 };
 
-const ListScreen = ({ route, navigation }: ListScreenProps) => {
+const ListScreen = ({ route }: ListScreenProps) => {
   const styles = useStyles();
   const useStore = route.params?.useStore;
 
@@ -37,10 +38,12 @@ const ListScreen = ({ route, navigation }: ListScreenProps) => {
     <PropertyCard property={item} isFullWidth onPress={() => null} />
   );
 
-  const renderChip = ({ item }: { item: Data[] }) => (
+  const renderChip = ({ item }: { item: Filter }) => (
     <ChipPicker
-      label={`test ${Math.random()}`}
-      data={item}
+      label={item.label}
+      data={item.items}
+      modalSize={item.modalSize}
+      selection={item.selection}
       onConfirm={() => null}
       onRemove={() => null}
     />
@@ -78,7 +81,7 @@ const ListScreen = ({ route, navigation }: ListScreenProps) => {
 
 type StylesProps = {};
 
-const useStyles = makeStyles((props: StylesProps) => ({
+const useStyles = makeStyles(({}: StylesProps) => ({
   container: {
     flex: 1,
   },

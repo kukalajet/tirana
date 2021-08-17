@@ -34,7 +34,7 @@ type StylesProps = {
 
 const useStyles = makeStyles(({ pressed, disabled, style }: StylesProps) => ({
   container: {
-    height: 48,
+    height: 56,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: disabled ? "#eee" : pressed ? "#1237E480" : "#1237E4",
@@ -45,7 +45,7 @@ const useStyles = makeStyles(({ pressed, disabled, style }: StylesProps) => ({
   label: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 20,
   },
 }));
 

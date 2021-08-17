@@ -4,19 +4,23 @@ import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { Feather } from "@expo/vector-icons";
 import CircularBackground from "../CircularBackground";
 import { useForceUpdate } from "../../utils";
-import Modal from "../Modal";
+import Modal, { Size } from "../Modal";
 import Data from "./Data";
 
 type Props = {
   open: boolean;
+  label: string;
+  data: Data[];
+  size?: Size;
   onConfirm: (values: Data[]) => void;
   onRemove: () => void;
   onDismiss: () => void;
-  data: Data[];
 };
 
 const MultiSelectionModal = ({
   open,
+  label,
+  size,
   onConfirm,
   onRemove,
   onDismiss,
@@ -81,7 +85,9 @@ const MultiSelectionModal = ({
 
   return (
     <Modal
+      label={label}
       open={open}
+      size={size}
       disabledButton={!!selected && selected.length === 0}
       onConfirm={() => onConfirm(selected!)}
       onDismiss={onDismiss}
@@ -101,22 +107,22 @@ const MultiSelectionModal = ({
 
 const styles = StyleSheet.create({
   itemContainer: {
-    height: 56,
+    height: 64,
     borderRadius: 8,
     marginVertical: 8,
     marginHorizontal: 16,
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: "#eeeeee75",
+    backgroundColor: "#f0f0f095",
     justifyContent: "space-between",
   },
   label: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: "600",
     paddingHorizontal: 16,
   },
   check: {
-    padding: 4,
+    padding: 6,
   },
   icon: {
     marginHorizontal: 16,

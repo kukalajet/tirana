@@ -1,20 +1,24 @@
 import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import Modal from "../Modal";
+import Modal, { Size } from "../Modal";
 import Data from "./Data";
 
 type Props = {
   open: boolean;
+  label: string;
   data: Data[];
+  size?: Size;
   onConfirm: (value: Data) => void;
   onRemove: () => void;
   onDismiss: () => void;
 };
 
 const SingleSelectionModal = ({
-  data,
   open,
+  data,
+  label,
+  size,
   onConfirm,
   onRemove,
   onDismiss,
@@ -25,14 +29,20 @@ const SingleSelectionModal = ({
         onPress={() => onConfirm(item)}
         style={styles.itemContainer}
       >
-        <Text>{item.label}</Text>
+        <Text style={styles.label}>{item.label}</Text>
       </TouchableOpacity>
     ),
     []
   );
 
   return (
-    <Modal open={open} onRemove={onRemove} onDismiss={onDismiss}>
+    <Modal
+      label={label}
+      open={open}
+      size={size}
+      onRemove={onRemove}
+      onDismiss={onDismiss}
+    >
       <BottomSheetFlatList
         data={data}
         keyExtractor={(_, index) => index.toString()}
@@ -44,13 +54,19 @@ const SingleSelectionModal = ({
 
 const styles = StyleSheet.create({
   itemContainer: {
-    height: 48,
+    height: 64,
+    borderRadius: 8,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 8,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#eee",
+    flexDirection: "row",
+    backgroundColor: "#f0f0f095",
+    justifyContent: "space-between",
+  },
+  label: {
+    fontSize: 20,
+    fontWeight: "600",
+    paddingHorizontal: 16,
   },
 });
 
