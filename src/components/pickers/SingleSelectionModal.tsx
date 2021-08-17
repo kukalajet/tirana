@@ -6,12 +6,19 @@ import Data from "./Data";
 
 type Props = {
   open: boolean;
-  onConfirm: (value: Data) => void;
-  onDismiss: () => void;
   data: Data[];
+  onConfirm: (value: Data) => void;
+  onRemove: () => void;
+  onDismiss: () => void;
 };
 
-const SingleSelectionModal = ({ data, open, onConfirm, onDismiss }: Props) => {
+const SingleSelectionModal = ({
+  data,
+  open,
+  onConfirm,
+  onRemove,
+  onDismiss,
+}: Props) => {
   const renderItem = useCallback(
     ({ item }) => (
       <TouchableOpacity
@@ -25,7 +32,7 @@ const SingleSelectionModal = ({ data, open, onConfirm, onDismiss }: Props) => {
   );
 
   return (
-    <Modal open={open} onDismiss={onDismiss}>
+    <Modal open={open} onRemove={onRemove} onDismiss={onDismiss}>
       <BottomSheetFlatList
         data={data}
         keyExtractor={(_, index) => index.toString()}
@@ -38,7 +45,8 @@ const SingleSelectionModal = ({ data, open, onConfirm, onDismiss }: Props) => {
 const styles = StyleSheet.create({
   itemContainer: {
     height: 48,
-    margin: 8,
+    marginVertical: 8,
+    marginHorizontal: 16,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",

@@ -13,7 +13,12 @@ type PropertyScreenProps = { navigation: PropertyScreenNavigationProp };
 const PropertyScreen = ({ navigation }: PropertyScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ChipPicker data={[]} onConfirm={() => null} onDismiss={() => null} />
+      <ChipPicker
+        label="test"
+        data={[]}
+        onConfirm={() => null}
+        onDismiss={() => null}
+      />
     </SafeAreaView>
   );
 };

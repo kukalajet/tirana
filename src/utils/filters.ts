@@ -1,71 +1,54 @@
-import { Data } from "../components/ModalPicker";
+import { Data } from "../components/pickers";
 
-type Filter = {
-  name: string;
-  data: Array<Data>;
-};
-
-const FILTERS: Array<Filter> = [
-  {
-    name: "test_1",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
-  {
-    name: "test_2",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
-  {
-    name: "test_3",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
-  {
-    name: "test_4",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
-  {
-    name: "test_5",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
-  {
-    name: "test_5",
-    data: [
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-      { name: "hey" },
-    ],
-  },
+const FILTERS: Array<Array<Data>> = [
+  [
+    { label: "hey" },
+    { label: "hey1" },
+    { label: "hey2" },
+    { label: "hey3" },
+    { label: "hey4" },
+    { label: "hey5" },
+    { label: "hey6" },
+    { label: "hey7" },
+    { label: "hey8" },
+    { label: "hey9" },
+  ],
+  [
+    { label: "hey" },
+    { label: "hey1" },
+    { label: "hey2" },
+    { label: "hey3" },
+    { label: "hey4" },
+    { label: "hey5" },
+    { label: "hey6" },
+    { label: "hey7" },
+    { label: "hey8" },
+    { label: "hey9" },
+  ],
+  [
+    { label: "hey" },
+    { label: "hey1" },
+    { label: "hey2" },
+    { label: "hey3" },
+    { label: "hey4" },
+    { label: "hey5" },
+    { label: "hey6" },
+    { label: "hey7" },
+    { label: "hey8" },
+    { label: "hey9" },
+  ],
+  [
+    { label: "hey" },
+    { label: "hey1" },
+    { label: "hey2" },
+    { label: "hey3" },
+    { label: "hey4" },
+    { label: "hey5" },
+    { label: "hey6" },
+    { label: "hey7" },
+    { label: "hey8" },
+    { label: "hey9" },
+  ],
 ];
 
 export default FILTERS;

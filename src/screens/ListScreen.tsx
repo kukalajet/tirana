@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -12,6 +12,7 @@ import { CompactProperty, Status } from "../models";
 import { RootStackParams } from "../navigations";
 import { makeStyles, FILTERS } from "../utils";
 import { PropertyCard } from "../components";
+import { ChipPicker, Data } from "../components/pickers";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -33,20 +34,16 @@ const ListScreen = ({ route, navigation }: ListScreenProps) => {
   const properties = useStore((state) => state.properties);
 
   const renderCard = ({ item }: { item: CompactProperty }) => (
-    <PropertyCard
-      property={item}
-      isFullWidth
-      onPress={() => console.log("Pressed")}
-    />
+    <PropertyCard property={item} isFullWidth onPress={() => null} />
   );
 
-  const renderChip = ({ item }: { item: any }) => (
-    // <SingleModalPicker
-    //   name={item.name}
-    //   data={item.data}
-    //   onPress={(data) => console.log(data)}
-    // />
-    <View></View>
+  const renderChip = ({ item }: { item: Data[] }) => (
+    <ChipPicker
+      label={`test ${Math.random()}`}
+      data={item}
+      onConfirm={() => null}
+      onRemove={() => null}
+    />
   );
 
   return (

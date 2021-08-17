@@ -1,27 +1,30 @@
 import React, { useRef, useCallback, useMemo } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { PrimaryButton } from "./buttons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Feather } from "@expo/vector-icons";
+import { PrimaryButton } from "./buttons";
 import { useEffect } from "react";
 
 type Props = {
+  open: boolean;
   children: React.ReactElement;
   onConfirm?: () => void;
+  onRemove: () => void;
   onDismiss: () => void;
-  open: boolean;
   disabledButton?: boolean;
 };
 
 const Modal = ({
+  open,
   children,
   onConfirm,
+  onRemove,
   onDismiss,
-  open,
   disabledButton,
 }: Props) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -57,14 +60,19 @@ const Modal = ({
       bottomInset={bottom}
       index={snapPoints.length - 1}
     >
-      <Text style={styles.title}>Title</Text>
+      <View style={styles.topBarContainer}>
+        <Text style={styles.title}>Title</Text>
+        <Feather name="x" size={28} onPress={onRemove} style={styles.remove} />
+      </View>
       {children}
       {!!onConfirm && (
-        <PrimaryButton
-          label="Done"
-          disabled={disabledButton}
-          onPress={() => onConfirm()}
-        />
+        <View style={styles.buttonContainer}>
+          <PrimaryButton
+            label="Done"
+            disabled={disabledButton}
+            onPress={() => onConfirm()}
+          />
+        </View>
       )}
     </BottomSheetModal>
   );
@@ -75,9 +83,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
   },
+  topBarContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  buttonContainer: {
+    paddingBottom: 16,
+  },
   title: {
     fontWeight: "bold",
     fontSize: 24,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  remove: {
     paddingVertical: 8,
     paddingHorizontal: 16,
   },

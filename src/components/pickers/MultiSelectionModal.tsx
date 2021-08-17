@@ -8,11 +8,18 @@ import Data from "./Data";
 type Props = {
   open: boolean;
   onConfirm: (values: Data[]) => void;
+  onRemove: () => void;
   onDismiss: () => void;
   data: Data[];
 };
 
-const MultiSelectionModal = ({ open, onConfirm, onDismiss, data }: Props) => {
+const MultiSelectionModal = ({
+  open,
+  onConfirm,
+  onRemove,
+  onDismiss,
+  data,
+}: Props) => {
   const [selected, setSelected] = useState<Data[]>([]);
 
   // `useForceUpdate` is needed to bypass a bug in `BottomSheetFlatList` which
@@ -65,6 +72,10 @@ const MultiSelectionModal = ({ open, onConfirm, onDismiss, data }: Props) => {
       disabledButton={!!selected && selected.length === 0}
       onConfirm={() => onConfirm(selected!)}
       onDismiss={onDismiss}
+      onRemove={() => {
+        setSelected([]);
+        onRemove();
+      }}
     >
       <BottomSheetFlatList
         data={data}

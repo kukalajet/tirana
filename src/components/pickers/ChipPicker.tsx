@@ -1,50 +1,86 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import MultiSelectionModal from "./MultiSelectionModal";
 import SingleSelectionModal from "./SingleSelectionModal";
 import Data from "./Data";
+import { makeStyles } from "../../utils";
 
 type Props = {
-  onConfirm: (values: Data[] | Data) => void;
-  onDismiss: () => void;
+  label: string;
   data: Data[];
+  onConfirm: (values: Data[] | Data) => void;
+  onRemove: () => void;
 };
 
-const ChipPicker = ({ onConfirm, onDismiss, data }: Props) => {
+const ChipPicker = ({ label, onConfirm, onRemove, data }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [selected, setSelected] = useState<Data | Data[]>();
+  const styles = useStyles({ selected: !!selected });
 
-  // testing
-  data = [{ label: "For Sale" }, { label: "For Rent" }, { label: "Sold" }];
+  const getLabel = (item: Data | Data[]): string => {
+    if (Array.isArray(item)) {
+      // return (item as Data[]).join("|");
+      const items = (item as Data[]).map((value) => value.label).join(" | ");
+      return items;
+    }
+    return (item as Data).label;
+  };
 
   return (
     <Pressable onPress={() => setOpen(true)} style={styles.container}>
-      <SingleSelectionModal
+      {/* <SingleSelectionModal
         data={data}
         open={open}
-        onConfirm={(values) => {
-          onConfirm(values);
-          console.log(values);
+        onConfirm={(value) => {
+          setSelected(value);
+          onConfirm(value);
           setOpen(false);
         }}
-        onDismiss={() => {
-          onDismiss();
+        onRemove={() => {
+          onRemove();
+          setSelected(undefined);
           setOpen(false);
         }}
+        onDismiss={() => setOpen(false)}
+      /> */}
+      <MultiSelectionModal
+        data={data}
+        open={open}
+        onConfirm={(value) => {
+          setSelected(value);
+          onConfirm(value);
+          setOpen(false);
+        }}
+        onRemove={() => {
+          onRemove();
+          setSelected(undefined);
+          setOpen(false);
+        }}
+        onDismiss={() => setOpen(false)}
       />
+      <Text style={styles.label}>{selected ? getLabel(selected!) : label}</Text>
     </Pressable>
   );
 };
 
-const styles = StyleSheet.create({
+type StylesProps = {
+  selected: boolean;
+};
+
+const useStyles = makeStyles(({ selected }: StylesProps) => ({
   container: {
-    width: 10,
-    height: 10,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "red",
+    borderWidth: 1.5,
+    borderColor: selected ? "#68a0cf20" : "#00000020",
     marginHorizontal: 4,
-    backgroundColor: "#68a0cf",
+    backgroundColor: selected ? "#68a0cf" : "#ffffff80",
+    alignItems: "center",
+    justifyContent: "center",
   },
-});
+  label: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+}));
 
 export default ChipPicker;
