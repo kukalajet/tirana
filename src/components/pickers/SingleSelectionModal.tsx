@@ -24,12 +24,12 @@ const SingleSelectionModal = ({
   onDismiss,
 }: Props) => {
   const renderItem = useCallback(
-    ({ item }) => (
+    ({ item }: { item: Data }) => (
       <TouchableOpacity
         onPress={() => onConfirm(item)}
         style={styles.itemContainer}
       >
-        <Text style={styles.label}>{item.label}</Text>
+        <Text style={styles.label}>{item.value}</Text>
       </TouchableOpacity>
     ),
     []
