@@ -1,9 +1,8 @@
 import create from "zustand";
 import { fetchNewProperties } from "../../apis";
-import { Status } from "../../models";
-import ListCommonInterface from "./ListCommonType";
+import { ListCommonType, Status } from "../../models";
 
-type NewPropertyState = ListCommonInterface;
+type NewPropertyState = ListCommonType;
 
 const useNewPropertyStore = create<NewPropertyState>((set) => ({
   status: Status.Initial,

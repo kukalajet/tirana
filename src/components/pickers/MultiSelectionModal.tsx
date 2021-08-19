@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import CircularBackground from "../CircularBackground";
 import { useForceUpdate } from "../../utils";
 import Modal, { Size } from "../Modal";
-import Data from "./Data";
+import { Data } from "../../models";
 
 type Props = {
   open: boolean;

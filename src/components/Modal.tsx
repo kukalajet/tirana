@@ -9,13 +9,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { PrimaryButton } from "./buttons";
 import { useEffect } from "react";
-
-export type Size = "medium" | "large";
+import { ModalSize } from "../models";
 
 type Props = {
   open: boolean;
   label: string;
-  size?: Size;
+  size?: ModalSize;
   children: React.ReactElement;
   onConfirm?: () => void;
   onRemove: () => void;
@@ -23,7 +22,7 @@ type Props = {
   disabledButton?: boolean;
 };
 
-const getSnapoints = (size: Size): string[] => {
+const getSnapoints = (size: ModalSize): string[] => {
   switch (size) {
     case "medium":
       return ["35%", "70%"];

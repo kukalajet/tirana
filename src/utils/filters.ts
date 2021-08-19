@@ -1,14 +1,4 @@
-import { Data } from "../components/pickers";
-import { Size } from "../components/Modal";
-
-export type Selection = "single" | "multi";
-
-export type Filter = {
-  modalSize: Size;
-  selection: Selection;
-  label: string;
-  items: Array<Data>;
-};
+import { Filter } from "../models";
 
 const FILTERS: Array<Filter> = [
   {

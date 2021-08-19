@@ -1,19 +1,16 @@
-type PropertyType =
-  | "Any"
-  | "Single House"
-  | "Apartment"
-  | "Townhouse"
-  | "Villa"
-  | "Condos";
+import PropertyStatus from "./PropertyStatus";
+import PropertyType from "./PropertyType";
 
-export type CompactProperty = {
+type CompactProperty = {
   id: number;
   type: PropertyType;
   address: string;
   price: string;
-  isForSale: boolean;
+  status: PropertyStatus;
   bedrooms: number;
   bathrooms: number;
   size: string;
   previewImage: string;
 };
+
+export default CompactProperty;

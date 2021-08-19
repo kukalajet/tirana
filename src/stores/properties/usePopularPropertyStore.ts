@@ -1,7 +1,6 @@
 import create from "zustand";
 import { fetchPopularProperties } from "../../apis";
-import { Status } from "../../models";
-import ListCommonType from "./ListCommonType";
+import { ListCommonType, Status } from "../../models";
 
 type PopularPropertyState = ListCommonType;
 

@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { CompactProperty, Status } from "../models";
+import { CompactProperty, Data, Status } from "../models";
 import { RootStackParams } from "../navigations";
 import { PropertyCard } from "../components";
 import { ChipPicker } from "../components/pickers";
 import { makeStyles, FILTERS } from "../utils";
-import { Filter } from "../utils/filters";
+import { Filter } from "../models";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -34,6 +34,8 @@ const ListScreen = ({ route }: ListScreenProps) => {
   const status = useStore((state) => state.status);
   const properties = useStore((state) => state.properties);
 
+  const handleFilters = (values: Data | Data[]) => {};
+
   const renderCard = ({ item }: { item: CompactProperty }) => (
     <PropertyCard property={item} isFullWidth onPress={() => null} />
   );
@@ -44,7 +46,7 @@ const ListScreen = ({ route }: ListScreenProps) => {
       data={item.items}
       modalSize={item.modalSize}
       selection={item.selection}
-      onConfirm={() => null}
+      onConfirm={(values) => console.log(values)}
       onRemove={() => null}
     />
   );

@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import Modal, { Size } from "../Modal";
-import Data from "./Data";
+import Modal from "../Modal";
+import { Data, ModalSize } from "../../models";
 
 type Props = {
   open: boolean;
   label: string;
   data: Data[];
-  size?: Size;
+  size?: ModalSize;
   onConfirm: (value: Data) => void;
   onRemove: () => void;
   onDismiss: () => void;

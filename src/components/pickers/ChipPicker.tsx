@@ -3,15 +3,14 @@ import { Pressable, Text } from "react-native";
 import MultiSelectionModal from "./MultiSelectionModal";
 import SingleSelectionModal from "./SingleSelectionModal";
 import { makeStyles } from "../../utils";
-import { Size } from "../Modal";
-import Selection from "./Selection";
-import Data from "./Data";
+import { ModalSelection } from "../../models";
+import { Data, ModalSize } from "../../models";
 
 type Props = {
   label: string;
   data: Data[];
-  modalSize: Size;
-  selection: Selection;
+  modalSize: ModalSize;
+  selection: ModalSelection;
   onConfirm: (values: Data[] | Data) => void;
   onRemove: () => void;
 };

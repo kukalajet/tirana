@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParams } from "../navigations/RootStack";
-import { ChipPicker } from "../components";
 
 type PropertyScreenNavigationProp = StackNavigationProp<
   RootStackParams,
@@ -13,12 +12,7 @@ type PropertyScreenProps = { navigation: PropertyScreenNavigationProp };
 const PropertyScreen = ({ navigation }: PropertyScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ChipPicker
-        label="test"
-        data={[]}
-        onConfirm={() => null}
-        onDismiss={() => null}
-      />
+      <Text>TEST</Text>
     </SafeAreaView>
   );
 };

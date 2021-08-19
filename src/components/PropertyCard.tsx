@@ -15,7 +15,7 @@ const PropertyCard = ({ property, isFullWidth, onPress }: Props) => {
   const type = property.type;
   const address = property.address;
   const price = property.price;
-  const isForSale = property.isForSale;
+  const status = property.status;
   const bedrooms = property.bedrooms;
   const bathrooms = property.bathrooms;
   const size = property.size;
@@ -40,7 +40,7 @@ const PropertyCard = ({ property, isFullWidth, onPress }: Props) => {
           </View>
           <View style={styles.headlineContainer}>
             <Text>{price}</Text>
-            {!isForSale && <Text>/Month</Text>}
+            {status === "For Rent" && <Text>/Month</Text>}
           </View>
           <View style={styles.subtitleContainer}>
             <Text>{address}</Text>
