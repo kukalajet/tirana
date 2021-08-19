@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import Modal from "../Modal";
 import { Data, ModalSize } from "../../models";
+import Modal from "../Modal";
 
 type Props = {
   open: boolean;

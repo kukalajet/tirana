@@ -4,14 +4,14 @@ import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { Feather } from "@expo/vector-icons";
 import CircularBackground from "../CircularBackground";
 import { useForceUpdate } from "../../utils";
-import Modal, { Size } from "../Modal";
-import { Data } from "../../models";
+import { Data, ModalSize } from "../../models";
+import Modal from "../Modal";
 
 type Props = {
   open: boolean;
   label: string;
   data: Data[];
-  size?: Size;
+  size?: ModalSize;
   onConfirm: (values: Data[]) => void;
   onRemove: () => void;
   onDismiss: () => void;
@@ -35,12 +35,12 @@ const MultiSelectionModal = ({
   const forceUpdate = useForceUpdate();
 
   const isSelected = (item: Data) => {
-    const found = selected?.find((element) => element.label === item.label);
+    const found = selected?.find((element) => element.value === item.value);
     return !!found;
   };
 
   const handleItemRemoval = (item: Data) => {
-    const newSelected = selected?.filter((value) => value.label !== item.label);
+    const newSelected = selected?.filter((value) => value.value !== item.value);
     setSelected(newSelected);
     forceUpdate();
   };
@@ -65,7 +65,7 @@ const MultiSelectionModal = ({
         }}
         style={styles.itemContainer}
       >
-        <Text style={styles.label}>{item.label}</Text>
+        <Text style={styles.label}>{item.value}</Text>
         {isSelected(item) ? (
           <CircularBackground style={styles.icon}>
             <Feather

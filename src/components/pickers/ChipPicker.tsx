@@ -29,10 +29,10 @@ const ChipPicker = ({
 
   const getLabel = (item: Data | Data[]): string => {
     if (Array.isArray(item)) {
-      const items = (item as Data[]).map((value) => value.label).join(" | ");
+      const items = (item as Data[]).map((value) => value.value).join(" | ");
       return items;
     }
-    return (item as Data).label;
+    return (item as Data).value!;
   };
 
   return (

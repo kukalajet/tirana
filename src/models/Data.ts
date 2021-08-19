@@ -1,5 +1,5 @@
 type Data = {
-  label: string;
+  value: string;
 };
 
 export default Data;
