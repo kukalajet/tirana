@@ -7,3 +7,4 @@ export { default as PropertyType } from "./PropertyType";
 export { default as Filter } from "./Filter";
 export { default as ModalSelection } from "./ModalSelection";
 export { default as ListCommonType } from "./ListCommonType";
+export { default as Filters } from "./Filters";

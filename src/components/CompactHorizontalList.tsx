@@ -9,8 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import { UseStore } from "zustand";
-import { CompactProperty, Status } from "../models";
-import { ListCommonType } from "../stores/properties";
+import { CompactProperty, ListCommonType, Status } from "../models";
 import { makeStyles } from "../utils";
 import PropertyCard, { CARD_WIDTH } from "./PropertyCard";
 

@@ -13,4 +13,15 @@ type CompactProperty = {
   previewImage: string;
 };
 
+// Can this be automated? Extract types from `CompactProperty`.
+export type PropertyKeys =
+  | "id"
+  | "type"
+  | "address"
+  | "price"
+  | "status"
+  | "bedrooms"
+  | "bathrooms"
+  | "size";
+
 export default CompactProperty;

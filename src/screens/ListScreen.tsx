@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -13,7 +13,7 @@ import { RootStackParams } from "../navigations";
 import { PropertyCard } from "../components";
 import { ChipPicker } from "../components/pickers";
 import { makeStyles, FILTERS } from "../utils";
-import { Filter } from "../models";
+import { Filter, Filters } from "../models";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -28,13 +28,21 @@ type ListScreenProps = {
 };
 
 const ListScreen = ({ route }: ListScreenProps) => {
+  const [filters, setFilters] = useState<Filters>({});
+
   const styles = useStyles();
   const useStore = route.params?.useStore;
 
   const status = useStore((state) => state.status);
   const properties = useStore((state) => state.properties);
+  const fetch = useStore((state) => state.fetch);
 
-  const handleFilters = (values: Data | Data[]) => {};
+  const handleFiltersChange = (values: Data | Data[]) => {
+    const newFilters: Filters = {};
+    const key = (values as Data).key;
+    const value = (values as Data).value;
+    if (key === "status") newFilters.status = value;
+  };
 
   const renderCard = ({ item }: { item: CompactProperty }) => (
     <PropertyCard property={item} isFullWidth onPress={() => null} />

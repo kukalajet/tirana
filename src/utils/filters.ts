@@ -4,18 +4,22 @@ const FILTERS: Array<Filter> = [
   {
     modalSize: "medium",
     selection: "multi",
-    label: "Status ",
-    items: [{ value: "For Sale" }, { value: "For Rent" }, { value: "Sold" }],
+    label: "Status",
+    items: [
+      { key: "status", value: "For Sale" },
+      { key: "status", value: "For Rent" },
+      { key: "status", value: "Sold" },
+    ],
   },
   {
     modalSize: "medium",
     selection: "single",
     label: "Price",
     items: [
-      { value: "hey" },
-      { value: "hey1" },
-      { value: "hey2" },
-      { value: "hey3" },
+      { key: "price", value: "hey" },
+      { key: "price", value: "hey1" },
+      { key: "price", value: "hey2" },
+      { key: "price", value: "hey3" },
     ],
   },
   {
@@ -23,10 +27,10 @@ const FILTERS: Array<Filter> = [
     selection: "multi",
     label: "Property Type",
     items: [
-      { value: "hey" },
-      { value: "hey1" },
-      { value: "hey2" },
-      { value: "hey3" },
+      { key: "type", value: "hey" },
+      { key: "type", value: "hey1" },
+      { key: "type", value: "hey2" },
+      { key: "type", value: "hey3" },
     ],
   },
 ];

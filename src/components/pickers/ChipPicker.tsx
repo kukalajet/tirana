@@ -5,9 +5,10 @@ import SingleSelectionModal from "./SingleSelectionModal";
 import { makeStyles } from "../../utils";
 import { ModalSelection } from "../../models";
 import { Data, ModalSize } from "../../models";
+import { PropertyKeys } from "../../models/Property";
 
 type Props = {
-  label: string;
+  label: PropertyKeys;
   data: Data[];
   modalSize: ModalSize;
   selection: ModalSelection;

@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { UseStore } from "zustand";
-import { ListCommonType } from "../stores";
+import { ListCommonType } from "../models";
 
 export type RootStackParams = {
   Root: {} | undefined;
