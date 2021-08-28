@@ -52,7 +52,7 @@ const ListScreen = ({ route }: ListScreenProps) => {
   const properties = useStore((state) => state.properties);
   const fetch = useStore((state) => state.fetch);
 
-  useEffect(() => {
+  useEffectExceptOnMount(() => {
     fetch(filters);
   }, [filters]);
 
