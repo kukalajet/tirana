@@ -4,15 +4,16 @@ import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { Feather } from "@expo/vector-icons";
 import CircularBackground from "../CircularBackground";
 import { useForceUpdate } from "../../utils";
-import { Data, ModalSize } from "../../models";
+import { ModalSize } from "../../models";
+import { SelectedFilter } from "./ChipPicker";
 import Modal from "../Modal";
 
 type Props = {
   open: boolean;
   label: string;
-  data: Data[];
+  data: SelectedFilter[];
   size?: ModalSize;
-  onConfirm: (values: Data[]) => void;
+  onConfirm: (data: SelectedFilter[]) => void;
   onRemove: () => void;
   onDismiss: () => void;
 };
@@ -26,7 +27,7 @@ const MultiSelectionModal = ({
   onDismiss,
   data,
 }: Props) => {
-  const [selected, setSelected] = useState<Data[]>([]);
+  const [selected, setSelected] = useState<SelectedFilter[]>([]);
 
   // `useForceUpdate` is needed to bypass a bug in `BottomSheetFlatList` which
   // doesn't re-render the FlatList once `data` changes.
@@ -34,18 +35,18 @@ const MultiSelectionModal = ({
   // Similar issue: https://github.com/gorhom/react-native-bottom-sheet/issues/480
   const forceUpdate = useForceUpdate();
 
-  const isSelected = (item: Data) => {
+  const isSelected = (item: SelectedFilter) => {
     const found = selected?.find((element) => element.value === item.value);
     return !!found;
   };
 
-  const handleItemRemoval = (item: Data) => {
+  const handleItemRemoval = (item: SelectedFilter) => {
     const newSelected = selected?.filter((value) => value.value !== item.value);
     setSelected(newSelected);
     forceUpdate();
   };
 
-  const handleItemInsertion = (item: Data) => {
+  const handleItemInsertion = (item: SelectedFilter) => {
     const newSelected = selected;
     newSelected?.push(item);
     setSelected(newSelected);
@@ -53,7 +54,7 @@ const MultiSelectionModal = ({
   };
 
   const renderItem = useCallback(
-    ({ item }: { item: Data }) => (
+    ({ item }: { item: SelectedFilter }) => (
       <TouchableOpacity
         onPress={() => {
           const selected = isSelected(item);
@@ -88,7 +89,7 @@ const MultiSelectionModal = ({
       label={label}
       open={open}
       size={size}
-      disabledButton={!!selected && selected.length === 0}
+      disabledConfirmButton={!!selected && selected.length === 0}
       onConfirm={() => onConfirm(selected!)}
       onDismiss={onDismiss}
       onRemove={() => {

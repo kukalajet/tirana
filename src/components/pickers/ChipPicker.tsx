@@ -3,16 +3,23 @@ import { Pressable, Text } from "react-native";
 import MultiSelectionModal from "./MultiSelectionModal";
 import SingleSelectionModal from "./SingleSelectionModal";
 import { makeStyles } from "../../utils";
-import { ModalSelection } from "../../models";
+import {
+  ModalSelection,
+  Price,
+  PropertyStatus,
+  PropertyType,
+} from "../../models";
 import { Data, ModalSize } from "../../models";
 import { PropertyKeys } from "../../models/Property";
 
+export type SelectedFilter = Data<PropertyStatus | PropertyType | Price>;
+
 type Props = {
   label: PropertyKeys;
-  data: Data[];
+  data: SelectedFilter[];
   modalSize: ModalSize;
   selection: ModalSelection;
-  onConfirm: (values: Data[] | Data) => void;
+  onConfirm: (data: SelectedFilter | SelectedFilter[]) => void;
   onRemove: () => void;
 };
 
@@ -25,15 +32,17 @@ const ChipPicker = ({
   onRemove,
 }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<Data | Data[]>();
+  const [selected, setSelected] = useState<SelectedFilter | SelectedFilter[]>();
   const styles = useStyles({ selected: !!selected });
 
-  const getLabel = (item: Data | Data[]): string => {
+  const getLabel = (item: SelectedFilter | SelectedFilter[]): string => {
     if (Array.isArray(item)) {
-      const items = (item as Data[]).map((value) => value.value).join(" | ");
+      const items = (item as Data<PropertyStatus | PropertyType>[])
+        .map((value) => value.value)
+        .join(" | ");
       return items;
     }
-    return (item as Data).value!;
+    return (item as SelectedFilter).value!.toString();
   };
 
   return (

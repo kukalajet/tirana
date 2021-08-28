@@ -1,4 +1,4 @@
-import { CompactProperty } from "../models";
+import { CompactProperty, Filters } from "../models";
 import properties from "./mock_properties";
 
 const BASE_URL: string = "https://test.com";
@@ -24,21 +24,23 @@ function shuffle(array: any): any {
 }
 // END TESTING: will be deleted
 
-export async function fetchPopularProperties(): Promise<
-  Array<CompactProperty>
-> {
+export async function fetchPopularProperties(
+  filters?: Filters
+): Promise<Array<CompactProperty>> {
   await delay(3500);
   return shuffle(properties);
 }
 
-export async function fetchSuggestedProperties(): Promise<
-  Array<CompactProperty>
-> {
+export async function fetchSuggestedProperties(
+  filters?: Filters
+): Promise<Array<CompactProperty>> {
   await delay(3000);
   return shuffle(properties);
 }
 
-export async function fetchNewProperties(): Promise<Array<CompactProperty>> {
+export async function fetchNewProperties(
+  filters?: Filters
+): Promise<Array<CompactProperty>> {
   await delay(2500);
   return shuffle(properties);
 }

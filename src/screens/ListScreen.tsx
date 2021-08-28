@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -8,12 +8,25 @@ import {
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import { CompactProperty, Data, Status } from "../models";
 import { RootStackParams } from "../navigations";
 import { PropertyCard } from "../components";
 import { ChipPicker } from "../components/pickers";
-import { makeStyles, FILTERS } from "../utils";
+import {
+  makeStyles,
+  RequireAtLeastOne,
+  useEffectExceptOnMount,
+} from "../utils";
+import { FILTERS } from "../utils";
 import { Filter, Filters } from "../models";
+import {
+  CompactProperty,
+  Data,
+  Price,
+  PropertyKeys,
+  PropertyStatus,
+  PropertyType,
+  Status,
+} from "../models";
 
 // https://stackoverflow.com/a/60968348
 LogBox.ignoreLogs([
@@ -27,6 +40,8 @@ type ListScreenProps = {
   navigation: ListScreenNavigationProp;
 };
 
+type SelectedFilter = Data<PropertyStatus | PropertyType | Price>;
+
 const ListScreen = ({ route }: ListScreenProps) => {
   const [filters, setFilters] = useState<Filters>({});
 
@@ -37,11 +52,46 @@ const ListScreen = ({ route }: ListScreenProps) => {
   const properties = useStore((state) => state.properties);
   const fetch = useStore((state) => state.fetch);
 
-  const handleFiltersChange = (values: Data | Data[]) => {
+  useEffect(() => fetch(filters), [filters]);
+
+  const handleFiltersChange = (data: SelectedFilter | SelectedFilter[]) => {
     const newFilters: Filters = {};
-    const key = (values as Data).key;
-    const value = (values as Data).value;
-    if (key === "status") newFilters.status = value;
+
+    if (Array.isArray(data)) {
+      data.forEach((item, index) => {
+        const key = (item as SelectedFilter).key;
+        const value = (item as SelectedFilter).value;
+
+        if (key === "status") {
+          if (!newFilters.status) newFilters.status = [];
+          if (index === 0 && !filters.status?.length) newFilters.status = [];
+          newFilters.status.push(value as PropertyStatus);
+        }
+        if (key === "type") {
+          if (!newFilters.type) newFilters.type = [];
+          if (index === 0 && !filters.type?.length) newFilters.type = [];
+          newFilters.type?.push(value as PropertyType);
+        }
+        if (key === "price") {
+          newFilters.price = value as RequireAtLeastOne<Price>;
+        }
+      });
+    } else {
+      const key = (data as SelectedFilter).key;
+      const value = (data as SelectedFilter).value;
+
+      if (key === "status") {
+        if (!newFilters.status) newFilters.status = [];
+        newFilters.status.push(value as PropertyStatus);
+      }
+      if (key === "type") {
+        if (!newFilters.type) newFilters.type = [];
+        newFilters.type.push(value as PropertyType);
+      }
+      if (key === "price") newFilters.price = value as RequireAtLeastOne<Price>;
+    }
+
+    setFilters({ ...filters, ...newFilters });
   };
 
   const renderCard = ({ item }: { item: CompactProperty }) => (
@@ -50,11 +100,11 @@ const ListScreen = ({ route }: ListScreenProps) => {
 
   const renderChip = ({ item }: { item: Filter }) => (
     <ChipPicker
-      label={item.label}
+      label={item.label as PropertyKeys}
       data={item.items}
       modalSize={item.modalSize}
       selection={item.selection}
-      onConfirm={(values) => console.log(values)}
+      onConfirm={(data) => handleFiltersChange(data)}
       onRemove={() => null}
     />
   );

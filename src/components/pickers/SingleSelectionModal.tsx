@@ -1,15 +1,16 @@
 import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { Data, ModalSize } from "../../models";
+import { ModalSize } from "../../models";
+import { SelectedFilter } from "./ChipPicker";
 import Modal from "../Modal";
 
 type Props = {
+  data: SelectedFilter[];
   open: boolean;
   label: string;
-  data: Data[];
   size?: ModalSize;
-  onConfirm: (value: Data) => void;
+  onConfirm: (data: SelectedFilter) => void;
   onRemove: () => void;
   onDismiss: () => void;
 };
@@ -24,7 +25,7 @@ const SingleSelectionModal = ({
   onDismiss,
 }: Props) => {
   const renderItem = useCallback(
-    ({ item }: { item: Data }) => (
+    ({ item }: { item: SelectedFilter }) => (
       <TouchableOpacity
         onPress={() => onConfirm(item)}
         style={styles.itemContainer}

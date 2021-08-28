@@ -4,8 +4,8 @@ import PropertyType from "./PropertyType";
 import { RequireAtLeastOne } from "../utils";
 
 type Filters = {
-  status?: PropertyStatus | Array<PropertyStatus>;
-  type?: PropertyType | Array<PropertyType>;
+  status?: Array<PropertyStatus>;
+  type?: Array<PropertyType>;
   price?: RequireAtLeastOne<Price>;
 };
 

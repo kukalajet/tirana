@@ -1,8 +1,8 @@
 import { PropertyKeys } from "./Property";
 
-type Data = {
+type Data<T> = {
   key: PropertyKeys;
-  value: string;
+  value: T;
 };
 
 export default Data;

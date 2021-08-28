@@ -8,3 +8,6 @@ export { default as Filter } from "./Filter";
 export { default as ModalSelection } from "./ModalSelection";
 export { default as ListCommonType } from "./ListCommonType";
 export { default as Filters } from "./Filters";
+export { default as Price } from "./Price";
+export { default as Property, PropertyKeys } from "./Property";
+// export { default as PropertyKeys } from "./PropertyKeys";

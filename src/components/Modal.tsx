@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import {
   BottomSheetBackdrop,
@@ -8,7 +8,6 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 import { PrimaryButton } from "./buttons";
-import { useEffect } from "react";
 import { ModalSize } from "../models";
 
 type Props = {
@@ -19,7 +18,7 @@ type Props = {
   onConfirm?: () => void;
   onRemove: () => void;
   onDismiss: () => void;
-  disabledButton?: boolean;
+  disabledConfirmButton?: boolean;
 };
 
 const getSnapoints = (size: ModalSize): string[] => {
@@ -41,7 +40,7 @@ const Modal = ({
   onConfirm,
   onRemove,
   onDismiss,
-  disabledButton,
+  disabledConfirmButton,
 }: Props) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => getSnapoints(size), []);
@@ -84,7 +83,7 @@ const Modal = ({
       {!!onConfirm && (
         <PrimaryButton
           label="Done"
-          disabled={disabledButton}
+          disabled={disabledConfirmButton}
           onPress={() => onConfirm()}
           style={styles.buttonContainer}
         />
