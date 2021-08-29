@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const styles = useStyles();
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <CompactHorizontalList
         name="Popular for today"
         useStore={usePopularPropertyStore}

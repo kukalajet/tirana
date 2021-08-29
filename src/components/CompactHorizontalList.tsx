@@ -1,16 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  Platform,
-  Pressable,
-} from "react-native";
+import { ActivityIndicator, FlatList, Platform, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { UseStore } from "zustand";
+import { Box, HStack, Square, Heading } from "native-base";
 import { CompactProperty, ListCommonType, Status } from "../models";
-import { makeStyles } from "../utils";
 import PropertyCard, { CARD_WIDTH } from "./PropertyCard";
 
 type Props = {
@@ -25,8 +18,6 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
 
   const navigation = useNavigation();
 
-  const styles = useStyles();
-
   useEffect(() => {
     fetch();
   }, []);
@@ -39,19 +30,26 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.head}>
-        <Text>{name}</Text>
+    <Box width="100%" height={288}>
+      <HStack
+        paddingX={4}
+        paddingY={4}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Heading size="md">{name}</Heading>
         <Pressable
           onPress={() => navigation.navigate("List", { useStore: useStore })}
         >
-          <Text>See all</Text>
+          <Heading size="sm" color="yellow.600">
+            See all
+          </Heading>
         </Pressable>
-      </View>
+      </HStack>
       {status !== Status.Success ? (
-        <View style={styles.spinner}>
+        <Square height="60%" width="100%">
           <ActivityIndicator />
-        </View>
+        </Square>
       ) : (
         <FlatList
           horizontal
@@ -64,24 +62,8 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
           keyExtractor={(_, index) => index.toString()}
         />
       )}
-    </View>
+    </Box>
   );
 };
-
-type StyleProps = {};
-
-const useStyles = makeStyles(({}: StyleProps) => ({
-  container: {
-    width: "100%",
-    height: 288,
-  },
-  head: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  spinner: {
-    alignSelf: "center",
-  },
-}));
 
 export default CompactHorizontalList;

@@ -69,7 +69,7 @@ const useStyles = makeStyles(({ isFullWidth }: StylesProps) => ({
     height: HEIGHT,
     width: !isFullWidth ? WIDTH : undefined,
     borderRadius: 8,
-    margin: MARGIN,
+    marginHorizontal: MARGIN,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
