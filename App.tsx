@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { NativeBaseProvider } from "native-base";
 import {
   HomeScreen,
   PropertyScreen,
@@ -21,19 +22,21 @@ const Root = () => {
 };
 
 const App = () => (
-  <NavigationContainer>
-    <BottomSheetModalProvider>
-      <RootStack.Navigator initialRouteName="Root">
-        <RootStack.Screen name="Root" component={Root} />
-        <RootStack.Screen
-          name="Property"
-          component={PropertyScreen}
-          options={{ headerShown: false }}
-        />
-        <RootStack.Screen name="List" component={ListScreen} />
-      </RootStack.Navigator>
-    </BottomSheetModalProvider>
-  </NavigationContainer>
+  <NativeBaseProvider>
+    <NavigationContainer>
+      <BottomSheetModalProvider>
+        <RootStack.Navigator initialRouteName="Root">
+          <RootStack.Screen name="Root" component={Root} />
+          <RootStack.Screen
+            name="Property"
+            component={PropertyScreen}
+            options={{ headerShown: false }}
+          />
+          <RootStack.Screen name="List" component={ListScreen} />
+        </RootStack.Navigator>
+      </BottomSheetModalProvider>
+    </NavigationContainer>
+  </NativeBaseProvider>
 );
 
 export default App;
