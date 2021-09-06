@@ -43,7 +43,7 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
         <TouchableOpacity
           onPress={() => navigation.navigate("List", { useStore: useStore })}
         >
-          <Heading size="md" color="yellow.600" py={0.5} px={4}>
+          <Heading size="md" color="yellow.600" py={0.5} px={2}>
             See all
           </Heading>
         </TouchableOpacity>
