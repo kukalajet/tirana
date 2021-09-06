@@ -1,5 +1,5 @@
-import { CompactProperty, Filters } from "../models";
-import properties from "./mock_properties";
+import { CompactProperty, Filters, Property } from "../models";
+import { property, properties } from "./mock_properties";
 
 const BASE_URL: string = "https://test.com";
 
@@ -43,4 +43,9 @@ export async function fetchNewProperties(
 ): Promise<Array<CompactProperty>> {
   await delay(2500);
   return shuffle(properties);
+}
+
+export async function fetchPropertyById(id: number): Promise<Property> {
+  await delay(1000);
+  return property;
 }

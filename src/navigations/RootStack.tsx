@@ -4,7 +4,7 @@ import { ListCommonType } from "../models";
 
 export type RootStackParams = {
   Root: {} | undefined;
-  Property: {} | undefined;
+  Property: { id: number };
   List: { useStore: UseStore<ListCommonType> };
 };
 

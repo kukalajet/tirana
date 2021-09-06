@@ -10,7 +10,7 @@ import {
   PropertyType,
 } from "../../models";
 import { Data, ModalSize } from "../../models";
-import { PropertyKeys } from "../../models/Property";
+import { PropertyKeys } from "../../models/CompactProperty";
 
 export type SelectedFilter = Data<PropertyStatus | PropertyType | Price>;
 

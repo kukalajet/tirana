@@ -1,4 +1,4 @@
-import { PropertyKeys } from "./Property";
+import { PropertyKeys } from "./CompactProperty";
 
 type Data<T> = {
   key: PropertyKeys;

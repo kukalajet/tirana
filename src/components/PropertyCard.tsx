@@ -1,23 +1,27 @@
 import React from "react";
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { Box, Text, HStack, VStack, useTheme } from "native-base";
+import { useNavigation } from "@react-navigation/core";
 import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { CompactProperty } from "../models";
 import CircleBackgroundIcon from "./CircleBackgroundIcon";
+import Image from "./Image";
 
 type Props = {
   property: CompactProperty;
   isFullWidth?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const HEIGHT = 224;
 const WIDTH = 320;
 const MARGIN = 16;
 
-const PropertyCard = ({ property, isFullWidth, onPress }: Props) => {
+const PropertyCard = ({ property, isFullWidth }: Props) => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
 
+  const id = property.id;
   const type = property.type;
   const address = property.address;
   const price = property.price;
@@ -28,7 +32,12 @@ const PropertyCard = ({ property, isFullWidth, onPress }: Props) => {
   const imagePreviewUrl = property.previewImage;
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("Property", { id });
+      }}
+      activeOpacity={0.8}
+    >
       <Box
         height={HEIGHT}
         width={!isFullWidth ? WIDTH : undefined}
@@ -38,12 +47,7 @@ const PropertyCard = ({ property, isFullWidth, onPress }: Props) => {
         borderRadius={12}
         backgroundColor={"white"}
       >
-        <Image
-          style={styles.image}
-          source={{
-            uri: imagePreviewUrl,
-          }}
-        />
+        <Image style={styles.image} source={{ uri: imagePreviewUrl }} />
         <Box flex={2} paddingY={1} paddingX={2}>
           <VStack flex={1}>
             <HStack flex={1} alignItems="center">

@@ -1,4 +1,24 @@
-import { CompactProperty } from "../models";
+import { CompactProperty, Property } from "../models";
+
+const property: Property = {
+  id: 1,
+  type: "Single House",
+  address: "45039 Newcastle, Calabasas, CA",
+  price: "100000 USD",
+  status: "For Sale",
+  bedrooms: 3,
+  bathrooms: 2,
+  size: "92 m\xB2",
+  images: [
+    "https://media.architecturaldigest.com/photos/571e97ce818277135ff91620/master/w_2626,h_1821,c_limit/modernist-decor-inspiration-07.jpg",
+    "http://cdn.home-designing.com/wp-content/uploads/2018/11/Rustic-modern-living-room.jpg",
+    "https://betweennapsontheporch.net/wp-content/uploads/2016/08/Tour-home-in-The-Intern-with-Anne-Hathaway-Robert-De-Niro.jpg",
+  ],
+  seller: {
+    name: "Jeton Kukalaj",
+    phone: "069 631 4886",
+  },
+};
 
 const properties: Array<CompactProperty> = [
   {
@@ -63,4 +83,4 @@ const properties: Array<CompactProperty> = [
   },
 ];
 
-export default properties;
+export { property, properties };

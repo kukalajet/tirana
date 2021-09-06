@@ -1,4 +1,5 @@
-export { default as CompactProperty } from "./Property";
+export { default as CompactProperty, PropertyKeys } from "./CompactProperty";
+export { default as Property } from "./Property";
 export { default as Status } from "./Status";
 export { default as Data } from "./Data";
 export { default as ModalSize } from "./ModalSize";
@@ -9,5 +10,3 @@ export { default as ModalSelection } from "./ModalSelection";
 export { default as ListCommonType } from "./ListCommonType";
 export { default as Filters } from "./Filters";
 export { default as Price } from "./Price";
-export { default as Property, PropertyKeys } from "./Property";
-// export { default as PropertyKeys } from "./PropertyKeys";

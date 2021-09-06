@@ -1,4 +1,4 @@
-import CompactProperty from "./Property";
+import CompactProperty from "./CompactProperty";
 import Filters from "./Filters";
 import Status from "./Status";
 

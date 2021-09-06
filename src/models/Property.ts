@@ -1,7 +1,12 @@
 import PropertyStatus from "./PropertyStatus";
 import PropertyType from "./PropertyType";
 
-type CompactProperty = {
+type Seller = {
+  name: string;
+  phone: string;
+};
+
+type Property = {
   id: number;
   type: PropertyType;
   address: string;
@@ -10,18 +15,8 @@ type CompactProperty = {
   bedrooms: number;
   bathrooms: number;
   size: string;
-  previewImage: string;
+  images: Array<string>;
+  seller: Seller;
 };
 
-// Can this be automated? Extract types from `CompactProperty`.
-export type PropertyKeys =
-  | "id"
-  | "type"
-  | "address"
-  | "price"
-  | "status"
-  | "bedrooms"
-  | "bathrooms"
-  | "size";
-
-export default CompactProperty;
+export default Property;

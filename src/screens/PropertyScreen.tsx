@@ -1,72 +1,110 @@
-import React from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { Box, VStack, Button, ZStack, HStack, useTheme } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Box, HStack, VStack, Text, Pressable, Image } from "native-base";
+import { RouteProp } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Feather } from "@expo/vector-icons";
+import Carousel from "pinar";
 import { RootStackParams } from "../navigations/RootStack";
+import { usePropertyStore } from "../stores";
+import { LoadingIndicator, Image } from "../components";
+import { Status } from "../models";
 
 type PropertyScreenNavigationProp = StackNavigationProp<
   RootStackParams,
   "Property"
 >;
-type PropertyScreenProps = { navigation: PropertyScreenNavigationProp };
+type PropertyScreenRoute = RouteProp<RootStackParams, "Property">;
+type PropertyScreenProps = {
+  route: PropertyScreenRoute;
+  navigation: PropertyScreenNavigationProp;
+};
 
-const PropertyScreen = ({ navigation }: PropertyScreenProps) => {
+const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
+  const status = usePropertyStore((state) => state.status);
+  const property = usePropertyStore((state) => state.property);
+  const fetch = usePropertyStore((state) => state.fetch);
+
+  const { colors } = useTheme();
+
+  const id = route.params?.id;
+
+  useEffect(() => {
+    fetch(id);
+  }, []);
+
+  const onBackPressed = () => {
+    navigation.goBack();
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Box
-        bg="primary.600"
-        py={4}
-        px={3}
-        rounded="md"
-        alignSelf="center"
-        width={375}
-        maxWidth="100%"
-      >
-        <HStack justifyContent="space-between">
-          <Box justifyContent="space-between">
-            <VStack space={2}>
-              <Text fontSize="sm" color="white">
-                Today @ 9PM
-              </Text>
-              <Text color="white" fontSize="lg">
-                Let's talk about avatar!
-              </Text>
-            </VStack>
-            <Pressable
-              rounded="sm"
-              bg="primary.400"
-              alignSelf="flex-start"
-              py={2}
-              px={3}
-            >
-              <Text
-                textTransform="uppercase"
-                fontSize={"sm"}
-                fontWeight="bold"
-                color="white"
-              >
-                Remind me
-              </Text>
-            </Pressable>
-          </Box>
-          <Image
-            source={{
-              uri: "https://media.vanityfair.com/photos/5ba12e6d42b9d16f4545aa19/3:2/w_1998,h_1332,c_limit/t-Avatar-The-Last-Airbender-Live-Action.jpg",
-            }}
-            alt="Aang flying and surrounded by clouds"
-            height={100}
-            rounded="full"
-            width={100}
-          />
-        </HStack>
+    <VStack flex={1}>
+      <Box flexGrow={0.66} backgroundColor={colors.gray300}>
+        <ZStack flex={1}>
+          {status === Status.Initial ? (
+            <LoadingIndicator />
+          ) : (
+            <Carousel showsControls={false} style={{ flex: 1 }}>
+              {property!.images.map((image: string, index: number) => {
+                console.log("inside carousel array");
+                return (
+                  <Image
+                    source={{ uri: image }}
+                    key={index.toString()}
+                    style={styles.image}
+                  />
+                );
+              })}
+            </Carousel>
+          )}
+          <SafeAreaView style={{ width: "100%" }}>
+            <HStack py={2} px={4} justifyContent="space-between">
+              <Button
+                height={12}
+                width={12}
+                variant="solid"
+                borderRadius={24}
+                bg={colors.white}
+                onPress={onBackPressed}
+                startIcon={
+                  <Feather name="chevron-left" color="black" size={16} />
+                }
+              />
+              <HStack space={2}>
+                <Button
+                  height={12}
+                  width={12}
+                  variant="solid"
+                  borderRadius={24}
+                  bg={colors.white}
+                  startIcon={<Feather name="share" color="black" size={16} />}
+                />
+                <Button
+                  height={12}
+                  width={12}
+                  variant="solid"
+                  borderRadius={24}
+                  bg={colors.white}
+                  startIcon={<Feather name="heart" color="black" size={16} />}
+                />
+              </HStack>
+            </HStack>
+          </SafeAreaView>
+        </ZStack>
       </Box>
-    </SafeAreaView>
+      <Box flex={1} backgroundColor={colors.white}>
+        {status === Status.Initial && <LoadingIndicator />}
+      </Box>
+    </VStack>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  image: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
