@@ -1,6 +1,8 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   HomeScreen,
   PropertyScreen,
@@ -9,14 +11,37 @@ import {
   ListScreen,
 } from "./src/screens";
 import { RootBottomTab, RootStack } from "./src/navigations";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 const Root = () => {
   return (
     <RootBottomTab.Navigator>
-      <RootBottomTab.Screen name="Home" component={HomeScreen} />
-      <RootBottomTab.Screen name="Search" component={SearchScreen} />
-      <RootBottomTab.Screen name="Profile" component={ProfileScreen} />
+      <RootBottomTab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="whatshot" color={color} size={size} />
+          ),
+        }}
+      />
+      <RootBottomTab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="search" color={color} size={size} />
+          ),
+        }}
+      />
+      <RootBottomTab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="person" color={color} size={size} />
+          ),
+        }}
+      />
     </RootBottomTab.Navigator>
   );
 };

@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  LogBox,
-  Platform,
-  View,
-} from "react-native";
+import { FlatList, LogBox, Platform, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParams } from "../navigations";
-import { PropertyCard } from "../components";
-import { ChipPicker } from "../components/pickers";
+import { PropertyCard, LoadingIndicator, ChipPicker } from "../components";
 import {
   makeStyles,
   RequireAtLeastOne,
@@ -75,7 +68,8 @@ const ListScreen = ({ route }: ListScreenProps) => {
           newFilters.type?.push(value as PropertyType);
         }
         if (key === "price") {
-          newFilters.price = value as RequireAtLeastOne<Price>;
+          // TODO: Remove `unknown` castinng and fix typing.
+          newFilters.price = value as unknown as RequireAtLeastOne<Price>;
         }
       });
     } else {
@@ -90,7 +84,10 @@ const ListScreen = ({ route }: ListScreenProps) => {
         if (!newFilters.type) newFilters.type = [];
         newFilters.type.push(value as PropertyType);
       }
-      if (key === "price") newFilters.price = value as RequireAtLeastOne<Price>;
+      if (key === "price") {
+        // TODO: Remove `unknown` castinng and fix typing.
+        newFilters.price = value as unknown as RequireAtLeastOne<Price>;
+      }
     }
 
     setFilters({ ...filters, ...newFilters });
@@ -124,15 +121,13 @@ const ListScreen = ({ route }: ListScreenProps) => {
         />
       </View>
       {status !== Status.Success ? (
-        <View style={styles.spinner}>
-          <ActivityIndicator />
-        </View>
+        <LoadingIndicator />
       ) : (
         <View style={styles.listContainer}>
           <FlatList
             data={properties}
             renderItem={renderCard}
-            decelerationRate={Platform.OS === "ios" ? 0.2 : 0.4}
+            decelerationRate={Platform.OS === "ios" ? 0.5 : 0.9}
             keyExtractor={(_, index) => index.toString()}
           />
         </View>

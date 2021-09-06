@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator, FlatList, Platform, Pressable } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { UseStore } from "zustand";
 import { Box, HStack, Square, Heading } from "native-base";
@@ -34,14 +39,14 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Heading size="md">{name}</Heading>
-        <Pressable
+        <Heading size="lg">{name}</Heading>
+        <TouchableOpacity
           onPress={() => navigation.navigate("List", { useStore: useStore })}
         >
-          <Heading size="sm" color="yellow.600">
+          <Heading size="md" color="yellow.600" py={0.5} px={4}>
             See all
           </Heading>
-        </Pressable>
+        </TouchableOpacity>
       </HStack>
       {status !== Status.Success ? (
         <Square height="60%" width="100%">

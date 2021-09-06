@@ -46,16 +46,13 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
             <LoadingIndicator />
           ) : (
             <Carousel showsControls={false} style={{ flex: 1 }}>
-              {property!.images.map((image: string, index: number) => {
-                console.log("inside carousel array");
-                return (
-                  <Image
-                    source={{ uri: image }}
-                    key={index.toString()}
-                    style={styles.image}
-                  />
-                );
-              })}
+              {property!.images.map((image: string, index: number) => (
+                <Image
+                  source={{ uri: image }}
+                  key={index.toString()}
+                  style={styles.image}
+                />
+              ))}
             </Carousel>
           )}
           <SafeAreaView style={{ width: "100%" }}>
