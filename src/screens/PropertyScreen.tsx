@@ -1,6 +1,16 @@
 import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
-import { Box, VStack, Button, ZStack, HStack, useTheme } from "native-base";
+import {
+  Box,
+  VStack,
+  Button,
+  ZStack,
+  HStack,
+  useTheme,
+  Heading,
+  Text,
+  Circle,
+} from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -8,7 +18,7 @@ import { Feather } from "@expo/vector-icons";
 import Carousel from "pinar";
 import { RootStackParams } from "../navigations/RootStack";
 import { usePropertyStore } from "../stores";
-import { LoadingIndicator, Image } from "../components";
+import { LoadingIndicator, Image, Tabs } from "../components";
 import { Status } from "../models";
 
 type PropertyScreenNavigationProp = StackNavigationProp<
@@ -29,6 +39,16 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
   const { colors } = useTheme();
 
   const id = route.params?.id;
+
+  const price = property?.price;
+  const bedrooms = `${property?.bedrooms} bedrooms`;
+  const bathrooms = `${property?.bathrooms} bathrooms`;
+  const size = property?.size;
+  const info = [bedrooms, bathrooms, size].join(" • ");
+  const address = property?.address;
+
+  const seller = property?.seller;
+  const phone = seller?.phone;
 
   useEffect(() => {
     fetch(id);
@@ -90,9 +110,41 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
           </SafeAreaView>
         </ZStack>
       </Box>
-      <Box flex={1} backgroundColor={colors.white}>
-        {status === Status.Initial && <LoadingIndicator />}
-      </Box>
+      <VStack flex={1} backgroundColor={colors.white}>
+        {status === Status.Initial ? (
+          <LoadingIndicator />
+        ) : (
+          <Box flex={1}>
+            <VStack space={2} px={4} py={4}>
+              <HStack justifyContent="space-between" alignItems="center">
+                <Heading size="lg">{price}</Heading>
+                <Heading size="xs">{info}</Heading>
+              </HStack>
+              <Text>{address}</Text>
+              <HStack space={2} alignItems="center">
+                <Circle size={4} bg="red.500" />
+                <Text>Appartment for sale</Text>
+              </HStack>
+            </VStack>
+            <HStack justifyContent="space-evenly" px={4} py={1}>
+              {!!phone && (
+                <Button flex={1} my={1} mr={1} variant="outline">
+                  Call
+                </Button>
+              )}
+              {!!phone && (
+                <Button variant="outline" m={1} flex={1}>
+                  Message
+                </Button>
+              )}
+              <Button my={1} ml={1} flex={1}>
+                On Map
+              </Button>
+            </HStack>
+            <Tabs />
+          </Box>
+        )}
+      </VStack>
     </VStack>
   );
 };
