@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import {
   Box,
   VStack,
   Button,
-  ZStack,
   HStack,
   useTheme,
   Heading,
   Text,
   Circle,
+  ScrollView,
 } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
@@ -61,54 +61,19 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
   return (
     <VStack flex={1}>
       <Box flexGrow={0.66} backgroundColor={colors.gray300}>
-        <ZStack flex={1}>
-          {status === Status.Initial ? (
-            <LoadingIndicator />
-          ) : (
-            <Carousel showsControls={false} style={{ flex: 1 }}>
-              {property!.images.map((image: string, index: number) => (
-                <Image
-                  source={{ uri: image }}
-                  key={index.toString()}
-                  style={styles.image}
-                />
-              ))}
-            </Carousel>
-          )}
-          <SafeAreaView style={{ width: "100%" }}>
-            <HStack py={2} px={4} justifyContent="space-between">
-              <Button
-                height={12}
-                width={12}
-                variant="solid"
-                borderRadius={24}
-                bg={colors.white}
-                onPress={onBackPressed}
-                startIcon={
-                  <Feather name="chevron-left" color="black" size={16} />
-                }
+        {status === Status.Initial ? (
+          <LoadingIndicator />
+        ) : (
+          <Carousel showsControls={false} style={{ flex: 1 }}>
+            {property!.images.map((image: string, index: number) => (
+              <Image
+                source={{ uri: image }}
+                key={index.toString()}
+                style={styles.image}
               />
-              <HStack space={2}>
-                <Button
-                  height={12}
-                  width={12}
-                  variant="solid"
-                  borderRadius={24}
-                  bg={colors.white}
-                  startIcon={<Feather name="share" color="black" size={16} />}
-                />
-                <Button
-                  height={12}
-                  width={12}
-                  variant="solid"
-                  borderRadius={24}
-                  bg={colors.white}
-                  startIcon={<Feather name="heart" color="black" size={16} />}
-                />
-              </HStack>
-            </HStack>
-          </SafeAreaView>
-        </ZStack>
+            ))}
+          </Carousel>
+        )}
       </Box>
       <VStack flex={1} backgroundColor={colors.white}>
         {status === Status.Initial ? (
@@ -145,6 +110,41 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
           </Box>
         )}
       </VStack>
+      <View style={styles.topBar}>
+        <SafeAreaView style={{ width: "100%" }}>
+          <HStack py={2} px={4} justifyContent="space-between">
+            <Button
+              height={12}
+              width={12}
+              variant="solid"
+              borderRadius={24}
+              bg={colors.white}
+              onPress={onBackPressed}
+              startIcon={
+                <Feather name="chevron-left" color="black" size={16} />
+              }
+            />
+            <HStack space={2}>
+              <Button
+                height={12}
+                width={12}
+                variant="solid"
+                borderRadius={24}
+                bg={colors.white}
+                startIcon={<Feather name="share" color="black" size={16} />}
+              />
+              <Button
+                height={12}
+                width={12}
+                variant="solid"
+                borderRadius={24}
+                bg={colors.white}
+                startIcon={<Feather name="heart" color="black" size={16} />}
+              />
+            </HStack>
+          </HStack>
+        </SafeAreaView>
+      </View>
     </VStack>
   );
 };
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  topBar: { position: "absolute", top: 0, left: 0, right: 0 },
 });
 
 export default PropertyScreen;

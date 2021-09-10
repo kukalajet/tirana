@@ -15,7 +15,7 @@ import {
 
 const FirstRoute = () => <Box flex={1} bgColor="#ff4081" />;
 
-const SecondRoute = () => <Box flex={1} bgColor="#673ab7" />;
+const SecondRoute = () => <Box height={1000} bgColor="#673ab7" />;
 
 type Route = { key: string; title: string };
 
