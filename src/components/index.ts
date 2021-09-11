@@ -6,6 +6,7 @@ export { default as CircleBackgroundIcon } from "./CircleBackgroundIcon";
 export { default as LoadingIndicator } from "./LoadingIndicator";
 export { default as Image } from "./Image";
 export { default as MapView } from "./MapView";
+export { default as InfoCard } from "./InfoCard";
 export * from "./property";
 export * from "./pickers";
 export * from "./buttons";

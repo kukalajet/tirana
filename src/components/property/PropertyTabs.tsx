@@ -7,12 +7,17 @@ import FeaturesTab from "./FeaturesTab";
 export type TabParams = {
   Overview: undefined;
   Features: undefined;
+  Seller: undefined;
 };
 
 const Tab = createMaterialTopTabNavigator<TabParams>();
 
+type Props = {
+  hasSeller?: boolean;
+};
+
 // TODO: Fix height for tabs. (Urgent)
-const PropertyTabs = () => (
+const PropertyTabs = ({ hasSeller }: Props) => (
   <Box height={1000}>
     <Tab.Navigator
       initialRouteName="Overview"
@@ -31,6 +36,13 @@ const PropertyTabs = () => (
         component={FeaturesTab}
         options={{ tabBarLabel: "Features" }}
       />
+      {!!hasSeller && (
+        <Tab.Screen
+          name="Seller"
+          component={FeaturesTab}
+          options={{ tabBarLabel: "Features" }}
+        />
+      )}
     </Tab.Navigator>
   </Box>
 );
