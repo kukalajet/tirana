@@ -1,5 +1,6 @@
 import PropertyStatus from "./PropertyStatus";
 import PropertyType from "./PropertyType";
+import { LatLng } from "../components/MapView";
 
 type Seller = {
   name: string;
@@ -17,6 +18,8 @@ type Property = {
   size: string;
   images: Array<string>;
   seller: Seller;
+  coordinate: LatLng;
+  description: string;
 };
 
 export default Property;

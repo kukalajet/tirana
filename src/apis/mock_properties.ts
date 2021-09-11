@@ -18,6 +18,12 @@ const property: Property = {
     name: "Jeton Kukalaj",
     phone: "069 631 4886",
   },
+  coordinate: {
+    longitude: 19.814309,
+    latitude: 41.330722,
+  },
+  description:
+    "Shitet Apartament ne qendren e kamzes ne pedonalen Bulevardi Blu. Apartamenti ndodhet ne katin e dyte dhe mund te perdoret dhe per shfrytezim biznesi.",
 };
 
 const properties: Array<CompactProperty> = [

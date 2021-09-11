@@ -32,7 +32,7 @@ const CompactHorizontalList = ({ name, useStore }: Props) => {
   );
 
   return (
-    <Box width="100%" height={288}>
+    <Box width="100%" height={300}>
       <HStack
         paddingX={4}
         paddingY={4}
