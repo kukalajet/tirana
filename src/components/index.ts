@@ -5,6 +5,6 @@ export { default as CircularBackground } from "./CircularBackground";
 export { default as CircleBackgroundIcon } from "./CircleBackgroundIcon";
 export { default as LoadingIndicator } from "./LoadingIndicator";
 export { default as Image } from "./Image";
-export { default as Tabs } from "./PropertyScreenTabs";
+export { PropertyTabs } from "./property";
 export * from "./pickers";
 export * from "./buttons";

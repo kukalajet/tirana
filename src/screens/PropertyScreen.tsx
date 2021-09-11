@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import {
   Box,
   VStack,
@@ -18,8 +18,10 @@ import { Feather } from "@expo/vector-icons";
 import Carousel from "pinar";
 import { RootStackParams } from "../navigations/RootStack";
 import { usePropertyStore } from "../stores";
-import { LoadingIndicator, Image, Tabs } from "../components";
+import { LoadingIndicator, Image, PropertyTabs } from "../components";
 import { Status } from "../models";
+
+const CAROUSEL_HEIGHT = Dimensions.get("screen").height / 2.5;
 
 type PropertyScreenNavigationProp = StackNavigationProp<
   RootStackParams,
@@ -59,57 +61,74 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
   };
 
   return (
-    <VStack flex={1}>
-      <Box flexGrow={0.66} backgroundColor={colors.gray300}>
-        {status === Status.Initial ? (
-          <LoadingIndicator />
-        ) : (
-          <Carousel showsControls={false} style={{ flex: 1 }}>
-            {property!.images.map((image: string, index: number) => (
-              <Image
-                source={{ uri: image }}
-                key={index.toString()}
-                style={styles.image}
-              />
-            ))}
-          </Carousel>
-        )}
-      </Box>
-      <VStack flex={1} backgroundColor={colors.white}>
-        {status === Status.Initial ? (
-          <LoadingIndicator />
-        ) : (
-          <Box flex={1}>
-            <VStack space={2} px={4} py={4}>
-              <HStack justifyContent="space-between" alignItems="center">
-                <Heading size="lg">{price}</Heading>
-                <Heading size="xs">{info}</Heading>
-              </HStack>
-              <Text>{address}</Text>
-              <HStack space={2} alignItems="center">
-                <Circle size={4} bg="red.500" />
-                <Text>Appartment for sale</Text>
-              </HStack>
-            </VStack>
-            <HStack justifyContent="space-evenly" px={4} py={1}>
-              {!!phone && (
-                <Button flex={1} my={1} mr={1} variant="outline">
-                  Call
-                </Button>
-              )}
-              {!!phone && (
-                <Button variant="outline" m={1} flex={1}>
-                  Message
-                </Button>
-              )}
-              <Button my={1} ml={1} flex={1}>
-                On Map
-              </Button>
-            </HStack>
-            <Tabs />
-          </Box>
-        )}
-      </VStack>
+    <Box flex={1}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1 }}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled={true}
+      >
+        <Box flex={1}>
+          {status === Status.Initial ? (
+            <Box height={CAROUSEL_HEIGHT}>
+              <LoadingIndicator />
+            </Box>
+          ) : (
+            <Carousel
+              height={CAROUSEL_HEIGHT}
+              showsControls={false}
+              autoplay={true}
+              loop={true}
+            >
+              {property!.images.map((image: string, index: number) => (
+                <Image
+                  source={{ uri: image }}
+                  key={index.toString()}
+                  style={styles.image}
+                />
+              ))}
+            </Carousel>
+          )}
+          <VStack flex={1} backgroundColor={colors.white}>
+            {status === Status.Initial ? (
+              <LoadingIndicator />
+            ) : (
+              <Box flex={1}>
+                <VStack space={2} px={4} py={4}>
+                  <HStack justifyContent="space-between" alignItems="center">
+                    <Heading size="lg">{price}</Heading>
+                    <Heading size="xs">{info}</Heading>
+                  </HStack>
+                  <Text>{address}</Text>
+                  <HStack space={2} alignItems="center">
+                    <Circle size={4} bg="red.500" />
+                    <Text>Appartment for sale</Text>
+                  </HStack>
+                </VStack>
+                <HStack justifyContent="space-evenly" px={4} py={1}>
+                  {!!phone && (
+                    <Button flex={1} my={1} mr={1} variant="outline">
+                      Call
+                    </Button>
+                  )}
+                  {!!phone && (
+                    <Button variant="outline" m={1} flex={1}>
+                      Message
+                    </Button>
+                  )}
+                  <Button my={1} ml={1} flex={1}>
+                    On Map
+                  </Button>
+                </HStack>
+                <Box flex={1}>
+                  <PropertyTabs />
+                </Box>
+              </Box>
+            )}
+          </VStack>
+        </Box>
+      </ScrollView>
       <View style={styles.topBar}>
         <SafeAreaView style={{ width: "100%" }}>
           <HStack py={2} px={4} justifyContent="space-between">
@@ -145,7 +164,7 @@ const PropertyScreen = ({ route, navigation }: PropertyScreenProps) => {
           </HStack>
         </SafeAreaView>
       </View>
-    </VStack>
+    </Box>
   );
 };
 
