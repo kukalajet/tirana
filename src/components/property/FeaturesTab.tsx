@@ -6,7 +6,7 @@ const FeaturesTab = () => {
   const property = usePropertyStore((state) => state.property);
 
   return (
-    <Box flex={1} justifyContent="center">
+    <Box flex={1} bgColor="coolGray.50">
       <Text>Features</Text>
       <Text>{property?.address}</Text>
     </Box>

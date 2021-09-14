@@ -18,12 +18,15 @@ type Props = {
 
 // TODO: Fix height for tabs. (Urgent)
 const PropertyTabs = ({ hasSeller }: Props) => (
-  <Box height={1000}>
+  <Box flexGrow={1}>
     <Tab.Navigator
       initialRouteName="Overview"
       screenOptions={{
         tabBarLabelStyle: { fontSize: 18 },
-        tabBarStyle: { backgroundColor: "white" },
+        tabBarStyle: {
+          backgroundColor: "white",
+          height: 48,
+        },
       }}
     >
       <Tab.Screen

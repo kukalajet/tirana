@@ -17,13 +17,17 @@ const Map = ({ coordinate, style }: Props) => {
     <MapView
       provider="google"
       showsIndoors={true}
-      camera={{
+      initialCamera={{
         center: coordinate,
         heading: 10,
         pitch: 0,
         zoom: 18.5,
         altitude: 0,
       }}
+      zoomEnabled={false}
+      rotateEnabled={false}
+      scrollEnabled={false}
+      pitchEnabled={false}
       style={style}
     >
       <Marker coordinate={coordinate} />
